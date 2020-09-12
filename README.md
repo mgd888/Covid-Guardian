@@ -1,7 +1,7 @@
 # cta
 CS 372 Project: Saskatchewan COVID-19 Tracker App (name wip)
 
-## Prequresits
+## Prerequisites
 1. You have Node 12 LTS installed https://nodejs.org/en/download/
 2. Open a command prompt window (or terminal) and run `npm install -g expo-cli`
 
