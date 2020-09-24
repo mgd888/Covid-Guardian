@@ -13,6 +13,9 @@ CS 372 Project: Saskatchewan COVID-19 Tracker App (name wip)
 - this should install the required packages
 4. Run `expo start` to start expo.
 
+## Note
+When running npm install, you may get a wall of error text, this should be okay. Just make sure you run `expo install` afterwards
+(this has to do with the firebase extension)
+
 ## Useful info
-Data Api:
-https://dashboard.saskatchewan.ca/export/cases/1552.json
+Data Source: https://dashboard.saskatchewan.ca/health-wellness/covid-19/cases
