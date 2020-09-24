@@ -9,13 +9,12 @@ CS 372 Project: Saskatchewan COVID-19 Tracker App (name wip)
 1. Clone the repository to your computer
 2. Navigate to the folder of the project (where App.js is)
 3. Open a command prompt in this location and run:
-`npm install`
+`npm install expo`
+4. Once that command is finished running, run:
+`expo install`
 - this should install the required packages
-4. Run `expo start` to start expo.
+5. Run `expo start` to start expo.
 
-## Note
-When running npm install, you may get a wall of error text, this should be okay. Just make sure you run `expo install` afterwards
-(this has to do with the firebase extension)
 
 ## Useful info
 Data Source: https://dashboard.saskatchewan.ca/health-wellness/covid-19/cases
