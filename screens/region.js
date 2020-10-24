@@ -112,7 +112,8 @@ export default function Region({navigation}) {
     let avg = AvgRating();                                       // 1
     Upercent = 1-avg/10;              //changes possitive rating to lower as allow easier coding
 
-    let Drating = .6*Gpercent+.4*Upercent;  //weighted towards government
+    let Drating;  //weighted towards government
+    Drating = .6 * Gpercentage + .4 *Upercentage //weighted 60/40
 
     If(Drating >=.9)
     {
