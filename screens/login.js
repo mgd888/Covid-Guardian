@@ -42,7 +42,8 @@ export default function Login({navigation}) {
         paddingRight:60
         
       }} placeholder="Password" secureTextEntry={true}></TextInput>
-      <Button title= "Log in" style={{alignSelf:'center', marginBottom: 20}} onPress={() => navigation.navigate('Dashboard')}/>
+        {/* We will add where this button redirects later */}
+     {/* <Button title= "Log in" style={{alignSelf:'center', marginBottom: 20}} onPress={() => navigation.navigate('Dashboard')}/> */}
       <Text style={{alignSelf:'center', marginBottom: 20, marginTop: 20}}>Don't have an account?</Text>
       <Button
         title="Sign Up Now"
