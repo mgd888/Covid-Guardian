@@ -8,6 +8,8 @@ The values below are set to 'XXXX' by default. Upon
 cloning the reposityory you will have to adjust these to
 point to our firebase project.
 
+Copy and rename the file to: firebaseConfig.js
+
 */
 
 export default {
