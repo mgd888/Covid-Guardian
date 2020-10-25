@@ -90,14 +90,13 @@ export default function Signup() {
         paddingLeft:60,
         paddingRight:60
       }} placeholder="Confirm Password" secureTextEntry={true}></TextInput>
-
-    {/* TODO: update where this should redirect @lee200351644 @Maverickbear77 @squaredx */}
-      <Button
+       {/* We need to update where it will redirect */}
+      {/* <Button
         title="Create Account"
-        // onPress={() => navigation.navigate()}
-      />
+        onPress={() => navigation.navigate('Dashboard')}
+      /> */}
       <Text></Text>
-     
+      <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
     );
 }
