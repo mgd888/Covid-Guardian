@@ -107,7 +107,7 @@ export default function Region({navigation}) {
     let Max = GetMaxCases();
     let current = GetCurrent(regionID);
 
-    let Gpercent = current/max;       //Government percent       with current setup should be 9/12 = 0.75
+    let Gpercentage = current/max;       //Government percent       with current setup should be 9/12 = 0.75
 
     let avg = AvgRating();                                       // 1
     Upercent = 1-(avg/10);
