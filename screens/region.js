@@ -110,7 +110,7 @@ export default function Region({navigation}) {
     let Gpercent = current/max;       //Government percent       with current setup should be 9/12 = 0.75
 
     let avg = AvgRating();                                       // 1
-    Upercent = 1-avg/10;              //changes possitive rating to lower as allow easier coding
+    Upercent = 1-(avg/10);
 
     let Drating;  //weighted towards government
     Drating = .6 * Gpercentage + .4 *Upercentage //weighted 60/40
