@@ -9,7 +9,13 @@ npm-debug.*
 *.orig.*
 web-build/
 
+.vs/*
+.vscode/*
+
 ios/.expo/settings.json
 
 # macOS
 .DS_Store
+
+#so we dont accidentally commit the firebase config to github
+components/Firebase/firebaseConfig.js
