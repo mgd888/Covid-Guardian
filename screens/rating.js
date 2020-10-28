@@ -18,7 +18,6 @@ export default function Rating(props) {
 
     const [commentData, setCommentData] = useState(''); //add commentData to state
     const [reviewData, setReviewData] = useState(-1); //add reviewData to state
-    const [title, setTitle] = useState('title');
 
     const regionID = props.navigation.getParam('regionID', -1); //get the regionID from props. default to -1 if not passed
 
@@ -74,7 +73,7 @@ export default function Rating(props) {
 
 
     const pressHandler = () => {
-        props.navigation.popToTop();
+        props.navigation.pop();
     }
 
     const submitButton = () => {
