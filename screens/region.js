@@ -5,7 +5,7 @@ import { max } from 'react-native-reanimated';
 
 const Emoji = props => (                               //reusable code for emojis that wont cause errors
     <span
-        className = "emooji"
+        className = "emoji"
         role="img"
         aria-label={props.label ? props.label : ""}
         aria-hidden={props.label ? "false" : "true"}
@@ -19,46 +19,60 @@ function getRegionID(region) {
     switch (region) {
         case "Far North West":
             result = 0;
-            break;
+
+
         case "Far North Central":
             result = 1;
-            break;
+
+
         case "Far North East":
             result = 2;
-            break;
+
+
         case "North West":
             result = 3;
-            break;
+
+
         case "North Central":
             result = 4;
-            break;
+
+
         case "North East":
             result = 5;
-            break;
+
+
         case "Saskatoon":
             result = 6;
-            break;
+
+
         case "Central West":
             result = 7;
-            break;
+
+
         case "Central East":
             result = 8;
-            break;
+
+
         case "Regina":
             result = 9;
-            break;
+
+
         case "South West":
             result = 10;
-            break;
+
+
         case "South Central":
             result = 11;
-            break;
+
+
         case "South East":
             result = 12;
-            break;
+
+
         default:
             result = -1;
-            break;
+
+
     }
     return result;
 }
@@ -83,6 +97,7 @@ function GetMaxCases()              // looks at current cases against max record
 function GetCurrent(regionID)
 {
     let current = regionID;             //will use ID to find the correct datapoint
+    return current;
 }
 
 function AvgRating(regionID)
@@ -102,12 +117,14 @@ export default function Region({navigation}) {
         navigation.navigate('Rating');
     }
 
+
+
     let regionN = getRegionNME();
     let regionID = getRegionID(regionN);
     let Max = GetMaxCases();
     let current = GetCurrent(regionID);
 
-    let Gpercentage = current/max;       //Government percent       with current setup should be 9/12 = 0.75
+    let Gpercentage = current/Max;       //Government percent       with current setup should be 9/12 = 0.75
 
     let avg = AvgRating();                                       // 1
     Upercentage = 1-(avg/10);
@@ -115,45 +132,85 @@ export default function Region({navigation}) {
     let Drating;  //weighted towards government
     Drating = .6 * Gpercentage + .4 *Upercentage; //weighted 60/40
 
-    If(Drating >=.9)
+    if(Drating >=.9)
     {
-        <Emoji symbol="🤮" label="everyhingSucks"/>   //ill make serious labels later
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="🤮" label="everyhingSucks"/>
+            </View>
+        );
     }
-    elseIf(Drating <.9 && Drating >=.8)
+    else if(Drating <.9 && Drating >=.8)
     {
-        <Emoji symbol="🤢" label="almostEverthingSucks"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="🤢" label="almostEverthingSucks"/>
+            </View>
+        );
     }
-    elseIf(Drating <.8 && Drating >=.7)
+    else if(Drating <.8 && Drating >=.7)
     {
-        <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>
+            </View>
+        );
     }
-    elseIf(Drating <.7 && Drating >=.6)
+    else if(Drating <.7 && Drating >=.6)
     {
-        <Emoji symbol="🤧" label="BestToAvoidPeople"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="🤧" label="BestToAvoidPeople"/>
+            </View>
+        );
     }
-    elseIf(Drating <.6 && Drating >=.5)
+    else if(Drating <.6 && Drating >=.5)
     {
-        <Emoji symbol="😷" label="MaskIsn'tOptional"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="😷" label="MaskIsn'tOptional"/>
+            </View>
+        );
     }
-    elseIf(Drating <.5 && Drating >=.4)
+    else if(Drating <.5 && Drating >=.4)
     {
-        <Emoji symbol="😖" label="Notterrible"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="😖" label="Notterrible"/>
+            </View>
+        );
     }
-    elseIf(Drating <.4 && Drating >=.3)
+    else if(Drating <.4 && Drating >=.3)
     {
-        <Emoji symbol="☹️" label="BubbleBurst"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="☹️" label="BubbleBurst"/>
+            </View>
+        );
     }
-    elseIf(Drating <.3 && Drating >=.2)
+    else if(Drating <.3 && Drating >=.2)
     {
-        <Emoji symbol="😐" label="bubbleHasn'tBurst"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="😐" label="bubbleHasn'tBurst"/>
+            </View>
+        );
     }
-    elseIf(Drating <.2 && Drating >=.1)
+    else if(Drating <.2 && Drating >=.1)
     {
-        <Emoji symbol="🙂" label="nearlyNormal"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="🙂" label="nearlyNormal"/>
+            </View>
+        );
     }
-    elseIf(Drating <.1)
+    else if(Drating <.1)
     {
-        <Emoji symbol="😄" label="CovidWhatsThat?"/>
+        return(
+            <View style={styles.container}>
+                <Emoji symbol="😄" label="CovidWhatsThat?"/>
+            </View>
+        );
     }
 
 
