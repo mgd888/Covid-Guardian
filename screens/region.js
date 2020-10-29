@@ -17,60 +17,61 @@ const Emoji = props => (                               //reusable code for emoji
 function getRegionID(region) {
     let result;
     switch (region) {
-        case "Far North West":
+        case 'Far North West':
             result = 0;
+            break;
 
-
-        case "Far North Central":
+        case 'Far North Central':
             result = 1;
+            break;
 
-
-        case "Far North East":
+        case 'Far North East':
             result = 2;
+            break;
 
-
-        case "North West":
+        case 'North West':
             result = 3;
+            break;
 
-
-        case "North Central":
+        case 'North Central':
             result = 4;
+            break;
 
-
-        case "North East":
+        case 'North East':
             result = 5;
+            break;
 
-
-        case "Saskatoon":
+        case 'Saskatoon':
             result = 6;
+            break;
 
-
-        case "Central West":
+        case 'Central West':
             result = 7;
+            break;
 
-
-        case "Central East":
+        case 'Central East':
             result = 8;
+            break;
 
-
-        case "Regina":
+        case 'Regina':
             result = 9;
+            break;
 
-
-        case "South West":
+        case 'South West':
             result = 10;
+            break;
 
-
-        case "South Central":
+        case 'South Central':
             result = 11;
+            break;
 
-
-        case "South East":
+        case 'South East':
             result = 12;
-
+            break;
 
         default:
             result = -1;
+            break;
 
 
     }
@@ -104,10 +105,10 @@ function AvgRating(regionID)
 {
     let x = regionID;
     let sum = 0;
-    for (let i = 0; i<x; i++)         //place holder until database is done
-    {
+    for (let i = 0; i < x; i++) {
         sum++;
     }
+    console.log(sum);
     return sum/x;
 }
 
@@ -126,11 +127,12 @@ export default function Region({navigation}) {
 
     let Gpercentage = current/Max;       //Government percent       with current setup should be 9/12 = 0.75
 
-    let avg = AvgRating();                                       // 1
+    let avg = AvgRating(regionID);                                       // 1
     Upercentage = 1-(avg/10);
 
     let Drating;  //weighted towards government
     Drating = .6 * Gpercentage + .4 *Upercentage; //weighted 60/40
+
 
     if(Drating >=.9)
     {
@@ -211,6 +213,14 @@ export default function Region({navigation}) {
                 <Emoji symbol="😄" label="CovidWhatsThat?"/>
             </View>
         );
+    }
+    else
+    {
+        return(
+            <View>
+                <Text>how did you get here?</Text>
+            </View>
+        )
     }
 
 
