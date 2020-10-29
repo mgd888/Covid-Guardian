@@ -108,7 +108,6 @@ function AvgRating(regionID)
     for (let i = 0; i < x; i++) {
         sum++;
     }
-    console.log(sum);
     return sum/x;
 }
 
@@ -146,7 +145,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="🤢" label="almostEverthingSucks"/>
+                <Text>
+                    <Emoji symbol="🤢" label="almostEverthingSucks"/>
+                </Text>
             </View>
         );
     }
@@ -154,7 +155,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>
+                <Text>
+                    <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>
+                </Text>
             </View>
         );
     }
@@ -162,7 +165,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="🤧" label="BestToAvoidPeople"/>
+                <Text>
+                    <Emoji symbol="🤧" label="BestToAvoidPeople"/>
+                </Text>
             </View>
         );
     }
@@ -170,7 +175,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="😷" label="MaskIsn'tOptional"/>
+                <Text>
+                    <Emoji symbol="😷" label="MaskIsn'tOptional"/>
+                </Text>
             </View>
         );
     }
@@ -178,7 +185,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="😖" label="Notterrible"/>
+                <Text>
+                    <Emoji symbol="😖" label="Notterrible"/>
+                </Text>
             </View>
         );
     }
@@ -186,7 +195,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="☹️" label="BubbleBurst"/>
+                <Text>
+                    <Emoji symbol="☹️" label="BubbleBurst"/>
+                </Text>
             </View>
         );
     }
@@ -194,7 +205,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="😐" label="bubbleHasn'tBurst"/>
+                <Text>
+                    <Emoji symbol="😐" label="bubbleHasn'tBurst"/>
+                </Text>
             </View>
         );
     }
@@ -202,7 +215,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="🙂" label="nearlyNormal"/>
+                <Text>
+                    <Emoji symbol="🙂" label="nearlyNormal"/>
+                </Text>
             </View>
         );
     }
@@ -210,7 +225,9 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Emoji symbol="😄" label="CovidWhatsThat?"/>
+                <Text>
+                    <Emoji symbol="😄" label="CovidWhatsThat?"/>
+                </Text>
             </View>
         );
     }
