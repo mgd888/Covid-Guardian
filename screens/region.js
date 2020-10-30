@@ -4,14 +4,14 @@ import { max } from 'react-native-reanimated';
 
 
 const Emoji = props => (                               //reusable code for emojis that wont cause errors
-    <span
+    <Text
         className = "emoji"
         role="img"
         aria-label={props.label ? props.label : ""}
         aria-hidden={props.label ? "false" : "true"}
     >
         {props.symbol}
-    </span>
+    </Text>
 );
 
 function getRegionID(region) {
@@ -145,9 +145,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
                     <Emoji symbol="🤢" label="almostEverthingSucks"/>
-                </Text>
             </View>
         );
     }
@@ -155,9 +153,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
                     <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>
-                </Text>
             </View>
         );
     }
@@ -165,9 +161,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
                     <Emoji symbol="🤧" label="BestToAvoidPeople"/>
-                </Text>
             </View>
         );
     }
@@ -175,9 +169,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
-                    <Emoji symbol="😷" label="MaskIsn'tOptional"/>
-                </Text>
+                <Emoji symbol="😷" label="MaskIsn'tOptional"/>
             </View>
         );
     }
@@ -185,9 +177,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
                     <Emoji symbol="😖" label="Notterrible"/>
-                </Text>
             </View>
         );
     }
@@ -195,9 +185,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
                     <Emoji symbol="☹️" label="BubbleBurst"/>
-                </Text>
             </View>
         );
     }
@@ -205,9 +193,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
                     <Emoji symbol="😐" label="bubbleHasn'tBurst"/>
-                </Text>
             </View>
         );
     }
@@ -215,9 +201,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
                     <Emoji symbol="🙂" label="nearlyNormal"/>
-                </Text>
             </View>
         );
     }
@@ -225,9 +209,7 @@ export default function Region({navigation}) {
     {
         return(
             <View style={styles.container}>
-                <Text>
                     <Emoji symbol="😄" label="CovidWhatsThat?"/>
-                </Text>
             </View>
         );
     }
