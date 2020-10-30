@@ -14,7 +14,7 @@ const Emoji = props => (                               //reusable code for emoji
     </Text>
 );
 
-function getRegionID(region) {
+function getRegionID(region) {          //finds region id by name. reusable
     let result;
     switch (region) {
         case 'Far North West':
@@ -101,7 +101,7 @@ function GetCurrent(regionID)
     return current;
 }
 
-function AvgRating(regionID)
+function AvgRating(regionID)           //calc avg rating will eventually go through all saved review scores
 {
     let x = regionID;
     let sum = 0;
