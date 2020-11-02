@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {  StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 
-export default function Signup() {
+export default function Signup({navigation}) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:"grey" }}>
       <Text style={{
@@ -94,7 +94,7 @@ export default function Signup() {
     {/* TODO: update where this should redirect @lee200351644 @Maverickbear77 @squaredx */}
       <Button
         title="Create Account"
-        // onPress={() => navigation.navigate()}
+        onPress={() => navigation.navigate('Login')}
       />
       <Text></Text>
      
