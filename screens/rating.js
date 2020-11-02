@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import * as fb from '../components/Firebase/firebase';
-import * as utils from '../components/utils/utilities';
+import * as utils from '../components/misc/utilities';
 
 export default function Rating(props) {
 
