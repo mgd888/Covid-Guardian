@@ -43,7 +43,7 @@ export default function Login({navigation}) {
           paddingRight:60
   
         }} placeholder="Password" secureTextEntry={true}></TextInput>
-        <Button title= "Log in" style={{alignSelf:'center', marginBottom: 20}} onPress={() => navigation.navigate('Signup')}/>
+        <Button title= "Log in" style={{alignSelf:'center', marginBottom: 20}} onPress={() => navigation.navigate('Home')}/>
         <Text style={{alignSelf:'center', marginBottom: 20, marginTop: 20}}>Don't have an account?</Text>
         <Button
           title="Sign Up Now"
