@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
 import { 
-    StyleSheet, 
-    Text, 
-    View, 
+    Alert,
     Button, 
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback, 
     Keyboard,
     KeyboardAvoidingView, 
-    Platform 
+    Platform,
+    StyleSheet, 
+    Text, 
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View
 } from 'react-native';
 
 import * as fb from '../components/Firebase/firebase';
+import * as utils from '../components/utils/utilities';
 
 export default function Rating(props) {
 
@@ -20,56 +22,6 @@ export default function Rating(props) {
     const [reviewData, setReviewData] = useState(-1); //add reviewData to state
 
     const regionID = props.navigation.getParam('regionID', -1); //get the regionID from props. default to -1 if not passed
-
-    //TODO: move this into a 'global library' since this will be used throughout the app
-    const getRegionString = (regionID) => {
-        let result;
-        switch (regionID) {
-            case 0:
-                result = "Far North West";
-                break;
-            case 1:
-                result = "Far North Central";
-                break;
-            case 2:
-                result = "Far North East";
-                break;
-            case 3:
-                result = "North West";
-                break;
-            case 4:
-                result = "North Central";
-                break;
-            case 5:
-                result = "North East";
-                break;
-            case 6:
-                result = "Saskatoon";
-                break;
-            case 7:
-                result = "Central West";
-                break;
-            case 8:
-                result = "Central East";
-                break;
-            case 9:
-                result = "Regina";
-                break;
-            case 10:
-                result = "South West";
-                break;
-            case 11:
-                result = "South Central";
-                break;
-            case 12:
-                result = "South East";
-                break;
-            default:
-                result = "invalid region: " + regionID;
-                break;
-        }
-        return result;
-    }
 
 
     const pressHandler = () => {
@@ -100,7 +52,17 @@ export default function Rating(props) {
 
         console.log(data);
 
-        //fb.submitReview(data);
+        var db = fb.fb.firestore();
+
+        //TODO: Uncomment when prod ready
+
+        // db.collection('ratings').doc().set(data).then(() => {
+        //     Alert.alert('Success!', 'Your review has been submitted. Thank you for your input!');
+        //     props.navigation.pop();
+        // }).catch((error) => {
+        //     Alert.alert('Unable to submit review', error.message);
+        //     console.error('an error has occured with submitting the review: ' + error.code);
+        // });
     }
 
     return (
@@ -110,7 +72,7 @@ export default function Rating(props) {
 
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inner}>
-                    <Text style={styles.screenHeader}>{getRegionString(regionID)}</Text>
+                    <Text style={styles.screenHeader}>{utils.getRegionString(regionID)}</Text>
 
                     <Text style={styles.inputHeading}>Rating:</Text>
                     <View style={styles.textView}>
