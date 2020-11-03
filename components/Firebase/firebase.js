@@ -9,19 +9,4 @@ if (!firebase.apps.length){
     console.log("authed");
 }
 
-const db = firebase.firestore();
-
 export const fb = firebase;
-
-//firebase functions below
-
-export function submitReview(review) {
-
-
-    db.collection('ratings').doc().set(review).then(() => {
-        return true;
-    }).catch(() => {
-        console.error('an error has occured with submitting the review');
-        return false;
-    });
-}
