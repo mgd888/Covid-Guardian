@@ -1,102 +1,168 @@
 import * as React from 'react';
 import {  StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
+import { Formik } from 'formik';
 
 export default function Signup({navigation}) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:"grey" }}>
-      <Text style={{
-        alignSelf:'center',
-        fontSize: 45,
-        color: 'white',
-        paddingBottom: 10,
-        marginBottom:20,
-        borderBottomColor: 'grey',
-        borderBottomWidth: 1,
-        fontWeight:'bold',
-        paddingLeft:60,
-        paddingRight:60  
-      }}>Sign Up</Text>
+      <Text 
+        style={{
+          alignSelf:'center',
+          fontSize: 45,
+          color: 'white',
+          paddingBottom: 10,
+          marginBottom:20,
+          borderBottomColor: 'grey',
+          borderBottomWidth: 1,
+          fontWeight:'bold',
+          paddingLeft:60,
+          paddingRight:60  
+        }}>
+          Sign Up
+      </Text>
 
-      <TextInput style={{
-        alignSelf:'center',
-        height: 20,
-        marginBottom: 20,
-        color:'white',
-        borderBottomColor: 'white',
-        borderBottomWidth: 1,
-        paddingLeft:60,
-        paddingRight:60
+  
 
-      }} placeholder="Name"></TextInput>
-      <TextInput style={{
-        alignSelf:'center',
-        height: 20,
-        marginBottom: 20,
-        color:'white',
-        borderBottomColor: 'white',
-        borderBottomWidth: 1,
-        paddingLeft:60,
-        paddingRight:60
+      <Formik 
+        
+        initialValues={{
+          name: '', 
+          username: '', 
+          age:'',
+          email:'',
+          password:'',
+          confirmpassword:''}}
+        onSubmit={values => console.log(values)}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values }) => (
+          <>
+            {/*Name Textfield*/}
+            <TextInput 
+              style={{
+                alignSelf:'center',
+                height: 20,
+                marginBottom: 20,
+                color:'white',
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                paddingLeft:60,
+                paddingRight:60
+              }} 
+              name="name"
+              placeholder="Enter name"
+              onChangeText={handleChange('name')}
+              onBlur={handleBlur('name')}
+              value={values.name}
+              
+            />
+            {/* Username Textfield*/}
+            <TextInput 
+              style={{
+                alignSelf:'center',
+                height: 20,
+                marginBottom: 20,
+                color:'white',
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                paddingLeft:60,
+                paddingRight:60
+              }} 
+              name="username"
+              placeholder="Enter Username"
+              onChangeText={handleChange('username')}
+              onBlur={handleBlur('username')}
+              value={values.username}
+              
+            />
+            {/* Age Textfield */}
+            <TextInput 
+              style={{
+                alignSelf:'center',
+                height: 20,
+                marginBottom: 20,
+                color:'white',
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                paddingLeft:60,
+                paddingRight:60
+              }} 
+              name="age"
+              placeholder="Enter Age"
+              onChangeText={handleChange('age')}
+              onBlur={handleBlur('age')}
+              value={values.age}
+              keyboardType="numeric"
+            />
 
-      }} placeholder="Username"></TextInput>
-      <TextInput style={{
-        alignSelf:'center',
-        height: 20,
-        marginBottom: 20,
-        color:'white',
-        borderBottomColor: 'white',
-        borderBottomWidth: 1,
-        paddingLeft:60,
-        paddingRight:60
-      }} placeholder="City"></TextInput>
-      <TextInput style={{
-        alignSelf:'center',
-        height: 20,
-        marginBottom: 20,
-        color:'white',
-        borderBottomColor: 'white',
-        borderBottomWidth: 1,
-        paddingLeft:60,
-        paddingRight:60
-      }} placeholder="Age"></TextInput>
-      <TextInput style={{
-        alignSelf:'center',
-        height: 20,
-        marginBottom: 20,
-        color:'white',
-        borderBottomColor: 'white',
-        borderBottomWidth: 1,
-        paddingLeft:60,
-        paddingRight:60
+            {/* Email Textfield */}
+            <TextInput 
+              style={{
+                alignSelf:'center',
+                height: 20,
+                marginBottom: 20,
+                color:'white',
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                paddingLeft:60,
+                paddingRight:60
 
-      }} placeholder="Email"></TextInput>
-      <TextInput style={{
-        alignSelf:'center',
-        height: 20,
-        marginBottom: 20,
-        color:'white',
-        borderBottomColor: 'white',
-        borderBottomWidth: 1,
-        paddingLeft:60,
-        paddingRight:60
-      }} placeholder="Password" secureTextEntry={true}></TextInput>
-      <TextInput style={{
-        alignSelf:'center',
-        height: 20,
-        marginBottom: 20,
-        color:'white',
-        borderBottomColor: 'white',
-        borderBottomWidth: 1,
-        paddingLeft:60,
-        paddingRight:60
-      }} placeholder="Confirm Password" secureTextEntry={true}></TextInput>
+              }} 
+              name="email"
+              placeholder="Enter email"
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              value={values.email}
+              keyboardType="email-address"
+            />
 
+            {/* Password Textfield*/}
+            <TextInput 
+              style={{
+                alignSelf:'center',
+                height: 20,
+                marginBottom: 20,
+                color:'white',
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                paddingLeft:60,
+                paddingRight:60
+              }}
+              placeholder="Enter Password" 
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+              secureTextEntry
+            />
+            {/* Confirm Password Textfield */}
+            <TextInput 
+              style={{
+                alignSelf:'center',
+                height: 20,
+                marginBottom: 20,
+                color:'white',
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                paddingLeft:60,
+                paddingRight:60
+              }} 
+              placeholder="Confirm Password" 
+              onChangeText={handleChange('confirmpassword')}
+              onBlur={handleBlur('confirmpassword')}
+              value={values.confirmpassword}
+              secureTextEntry
+            />
+            <Button onPress={handleSubmit} title="Sign in"/>
+          </>
+        )}
+
+      </Formik>
+      <Text></Text>
     {/* TODO: update where this should redirect @lee200351644 @Maverickbear77 @squaredx */}
       <Button
         title="Create Account"
         onPress={() => navigation.navigate('Login')}
       />
-      <Text></Text>
+     
      
     </View>
     );
