@@ -105,7 +105,6 @@ export default function Signup({navigation}) {
                 borderBottomWidth: 1,
                 paddingLeft:60,
                 paddingRight:60
-
               }} 
               name="email"
               placeholder="Enter email"
@@ -162,8 +161,6 @@ export default function Signup({navigation}) {
         title="Create Account"
         onPress={() => navigation.navigate('Login')}
       />
-     
-     
     </View>
     );
 }
