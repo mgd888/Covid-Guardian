@@ -5,19 +5,19 @@ import { getRegionString } from '../components/misc/utilities';
 
 export default function Home({navigation}) {
     const [region] = useState([
-        { key: '1',  regionID: 0 },
-        { key: '2',  regionID: 1 },
-        { key: '3',  regionID: 2 },
-        { key: '4',  regionID: 3 },
-        { key: '5',  regionID: 4 },
-        { key: '6',  regionID: 5 },
-        { key: '7',  regionID: 6 },
-        { key: '8',  regionID: 7 },
-        { key: '9',  regionID: 8 },
-        { key: '10', regionID: 9 },
-        { key: '11', regionID: 10 },
-        { key: '12', regionID: 11 },
-        { key: '13', regionID: 12 },
+        { key: 1,  regionID: 0 },
+        { key: 2,  regionID: 1 },
+        { key: 3,  regionID: 2 },
+        { key: 4,  regionID: 3 },
+        { key: 5,  regionID: 4 },
+        { key: 6,  regionID: 5 },
+        { key: 7,  regionID: 6 },
+        { key: 8,  regionID: 7 },
+        { key: 9,  regionID: 8 },
+        { key: 10, regionID: 9 },
+        { key: 11, regionID: 10 },
+        { key: 12, regionID: 11 },
+        { key: 13, regionID: 12 },
     ]);
     
     return (
