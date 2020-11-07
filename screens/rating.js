@@ -52,7 +52,7 @@ export default function Rating(props) {
 
         console.log(data);
 
-        var db = fb.fb.firestore();
+        let db = fb.fb.firestore();
 
         //TODO: Uncomment when prod ready
 
