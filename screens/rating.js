@@ -16,10 +16,16 @@ import {
 import * as fb from '../components/Firebase/firebase';
 import * as utils from '../components/misc/utilities';
 
+import Input from '../components/Input';
+
 export default function Rating(props) {
 
     const [commentData, setCommentData] = useState(''); //add commentData to state
+    const [isCommentValid, setIsCommentValid] = useState(false);
     const [reviewData, setReviewData] = useState(-1); //add reviewData to state
+    const [isReviewValid, setIsReviewValid] = useState(false);
+
+    const [isValid, setIsValid] = useState(false);
 
     const regionID = props.navigation.getParam('regionID', -1); //get the regionID from props. default to -1 if not passed
 
@@ -32,20 +38,31 @@ export default function Rating(props) {
 
         /*TODO: DO ERROR CHECKING
             -check that regionID is not -1
-            -check that ratingsData is a valid number
-            -check that commentData is under 150?? characters
+            DONE-check that ratingsData is a valid number
+            DONE-check that commentData is under 100?? characters
             -check that the user is authenticated
 
             -send review to firestore
             --if success: show message that says review sucessfully submitted
             --else: show message containing error
         */
+        let reviewInt = parseInt(reviewData);
+
+        if(!isCommentValid && commentData.length != 0) {
+            Alert.alert('Error','Please ensure the comment is under 100 characters.');
+            return;
+        }
+
+        if(!isReviewValid || (reviewInt < 1 || reviewInt > 5)) {
+            Alert.alert('Error','Please ensure the rating is a number between 1-5.');
+            return;
+        }
 
         //create an object containing the review data
         var data = {
             comment: commentData,
             date: fb.fb.firestore.Timestamp.now(),
-            rating: reviewData,
+            rating: reviewInt,
             regionID: regionID,
             userID: "1"
         };
@@ -65,6 +82,7 @@ export default function Rating(props) {
         // });
     }
 
+
     return (
         <KeyboardAvoidingView 
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
@@ -76,18 +94,27 @@ export default function Rating(props) {
 
                     <Text style={styles.inputHeading}>Rating:</Text>
                     <View style={styles.textView}>
-                        <TextInput 
+                        <Input 
                             style={styles.textInput}
-                            placeholder='Please enter a number between 0 and 5'/>
+                            pattern={'^[0-9]$'}
+                            placeholder='Please enter a number between 1 and 5'
+                            onChangeText={text => setReviewData(text)}
+                            onValidation={result => setIsReviewValid(result)}
+                            onBlur={() => {console.log('blured')}}/>
                     </View>
                     <Text></Text>
 
                     <Text style={styles.inputHeading}>Comment:</Text>
-                    <View style={styles.textView}>
-                        <TextInput 
-                            style={styles.textInput}
-                            placeholder='Comment...'
-                            onChangeText={(text) => setCommentData(text)}/>
+                    <View>
+                        <View style={styles.textView}>
+                            <Input 
+                                style={styles.textInput}
+                                placeholder='Comment... (optional)'
+                                pattern={'^.{0,100}$'}
+                                onChangeText={text => setCommentData(text)}
+                                onValidation={result => setIsCommentValid(result)}/>
+                        </View>
+                        <Text style={(commentData.length > 100)? styles.counterInvalid : styles.counterDefault}>{commentData.length} / 100</Text>
                     </View>
                     
                     <TouchableOpacity style={styles.submitButton} onPress={submitButton}>
@@ -142,5 +169,11 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 20,
         padding: 10
+    },
+    counterDefault: {
+        color: 'grey'
+    },
+    counterInvalid: {
+        color: 'red'
     }
 });
