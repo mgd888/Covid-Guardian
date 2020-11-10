@@ -2,7 +2,13 @@ import * as React from 'react';
 import {  StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 
+import * as fb from '../components/Firebase/firebase';
+
 export default function Signup({navigation}) {
+  const test = (values) => {
+    fb.registerUser('jason.wolfe71@gmail.com', 'test1234', 'test', 1, 'test')
+  };
+
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:"grey" }}>
       <Text 
@@ -32,7 +38,7 @@ export default function Signup({navigation}) {
           email:'',
           password:'',
           confirmpassword:''}}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => fb.registerUser(values.email, values.password, values.name, 1, values.age, navigation)}
       >
         {({ handleChange, handleBlur, handleSubmit, values }) => (
           <>

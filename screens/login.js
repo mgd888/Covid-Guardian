@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import {  StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 
+import * as fb from '../components/Firebase/firebase';
+
 export default function Login({navigation}) {
 
     const pressHandler = () => {
         navigation.navigate('Signup');
     }
-
 
     return (
     
@@ -31,7 +32,7 @@ export default function Login({navigation}) {
           <Formik 
             
             initialValues={{username: '', password:''}}
-            onSubmit={values => console.log(values)}
+            onSubmit={values => fb.loginUser(values.username, values.password, navigation)}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
               <>
