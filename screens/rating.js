@@ -7,7 +7,6 @@ import {
     Platform,
     StyleSheet, 
     Text, 
-    TextInput,
     TouchableOpacity,
     TouchableWithoutFeedback,
     View
@@ -16,10 +15,14 @@ import {
 import * as fb from '../components/Firebase/firebase';
 import * as utils from '../components/misc/utilities';
 
+import Input from '../components/Input';
+
 export default function Rating(props) {
 
     const [commentData, setCommentData] = useState(''); //add commentData to state
+    const [isCommentValid, setIsCommentValid] = useState(false); //used to see if the comment is valid (through regex)
     const [reviewData, setReviewData] = useState(-1); //add reviewData to state
+    const [isReviewValid, setIsReviewValid] = useState(false); //used to see if the rating is valid (through regex)
 
     const regionID = props.navigation.getParam('regionID', -1); //get the regionID from props. default to -1 if not passed
 
@@ -30,40 +33,61 @@ export default function Rating(props) {
 
     const submitButton = () => {
 
-        /*TODO: DO ERROR CHECKING
-            -check that regionID is not -1
-            -check that ratingsData is a valid number
-            -check that commentData is under 150?? characters
-            -check that the user is authenticated
+        let reviewInt = parseInt(reviewData); //convert to number
 
-            -send review to firestore
-            --if success: show message that says review sucessfully submitted
-            --else: show message containing error
-        */
+        //check that the comment is less than or equal to 100
+        if(!isCommentValid && commentData.length != 0) {
+            Alert.alert('Error', 'Please ensure the comment is under 100 characters.');
+            return;
+        }
+
+        //check the the review number is really a number and 1-5
+        if(!isReviewValid || (reviewInt < 1 || reviewInt > 5)) {
+            Alert.alert('Error', 'Please ensure the rating is a number between 1-5.');
+            return;
+        }
+        
+        //Check if the region id is valid
+        if(regionID == -1){
+            Alert.alert('Error', 'Invalid region ID.');
+            return;
+        }
+
+        //TODO: check if user authed
+
+        //If we got to this point we have valid data that can be submitted
 
         //create an object containing the review data
-        var data = {
+        let data = {
             comment: commentData,
             date: fb.fb.firestore.Timestamp.now(),
-            rating: reviewData,
+            rating: reviewInt,
             regionID: regionID,
             userID: "1"
         };
 
-        console.log(data);
 
-        var db = fb.fb.firestore();
+        //Check if we are in testing mode
+        if(utils.prod) {
+            let db = fb.fb.firestore(); //reference to the firestore
 
-        //TODO: Uncomment when prod ready
+            console.log('Attempting to submit review to firebase...');
 
-        // db.collection('ratings').doc().set(data).then(() => {
-        //     Alert.alert('Success!', 'Your review has been submitted. Thank you for your input!');
-        //     props.navigation.pop();
-        // }).catch((error) => {
-        //     Alert.alert('Unable to submit review', error.message);
-        //     console.error('an error has occured with submitting the review: ' + error.code);
-        // });
+            //attempt to submit the data to ratings
+            db.collection('ratings').doc().set(data).then(() => {
+                Alert.alert('Success!', 'Your review has been submitted. Thank you for your input!');
+                props.navigation.pop(); //return to the previous screen
+            }).catch((error) => {
+                Alert.alert('Unable to submit review', error.message);
+                console.error('an error has occured with submitting the review: ' + error.code);
+            });
+        }
+        else{
+            console.log(data);
+            props.navigation.pop(); //return to the previous screen
+        }
     }
+
 
     return (
         <KeyboardAvoidingView 
@@ -76,18 +100,27 @@ export default function Rating(props) {
 
                     <Text style={styles.inputHeading}>Rating:</Text>
                     <View style={styles.textView}>
-                        <TextInput 
+                        <Input 
                             style={styles.textInput}
-                            placeholder='Please enter a number between 0 and 5'/>
+                            pattern={'^[0-9]$'}
+                            placeholder='Please enter a number between 1 and 5'
+                            onChangeText={text => setReviewData(text)}
+                            onValidation={result => setIsReviewValid(result)}
+                            onBlur={() => {console.log('blured')}}/>
                     </View>
                     <Text></Text>
 
                     <Text style={styles.inputHeading}>Comment:</Text>
-                    <View style={styles.textView}>
-                        <TextInput 
-                            style={styles.textInput}
-                            placeholder='Comment...'
-                            onChangeText={(text) => setCommentData(text)}/>
+                    <View>
+                        <View style={styles.commentView}>
+                            <Input 
+                                style={styles.textInput}
+                                placeholder='Comment... (optional)'
+                                pattern={'^.{0,100}$'}
+                                onChangeText={text => setCommentData(text)}
+                                onValidation={result => setIsCommentValid(result)}/>
+                        </View>
+                        <Text style={(commentData.length > 100)? styles.counterInvalid : styles.counterDefault}>{commentData.length} / 100</Text>
                     </View>
                     
                     <TouchableOpacity style={styles.submitButton} onPress={submitButton}>
@@ -97,7 +130,6 @@ export default function Rating(props) {
                     <Button title='Cancel' onPress={pressHandler} />
                 </View>
             </TouchableWithoutFeedback>
-            
         </KeyboardAvoidingView>
     );
 }
@@ -142,5 +174,20 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 20,
         padding: 10
+    },
+    commentView: {
+        backgroundColor: 'white',
+        borderRadius: 5,
+        marginTop: 5,
+        marginBottom: 10,
+        padding: 10
+    },
+    counterDefault: {
+        color: 'grey',
+        textAlign: 'right'
+    },
+    counterInvalid: {
+        color: 'red',
+        textAlign: 'right'
     }
 });
