@@ -8,11 +8,29 @@ export default function Home({navigation}) {
     }
 
     return (
+<<<<<<< Updated upstream
         <View style={styles.container}>
             <Text>Home Screen</Text>
             <Button title='Region View' onPress={pressHandler} />
         </View>
     );
+=======
+        <ScrollView>
+            <View style={styles.container}>
+                <Image style={styles.image} source={require('../source/assets/map.png')} />
+                { region.map((item) => {
+                    return (
+                        <View key={item.key}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Region', item)}>
+                                <Text style={styles.title}>{item. key}. {getRegionString(item.regionID)}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                })}
+            </View>
+        </ScrollView>
+    )
+>>>>>>> Stashed changes
 }
 
 const styles = StyleSheet.create({

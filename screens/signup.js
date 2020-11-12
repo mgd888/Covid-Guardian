@@ -28,6 +28,7 @@ export default function Signup({navigation}) {
         initialValues={{
           name: '', 
           username: '', 
+          region: '',
           age:'',
           email:'',
           password:'',
@@ -74,6 +75,25 @@ export default function Signup({navigation}) {
               value={values.username}
               
             />
+            {/* Region Textfield*/}
+            <TextInput 
+              style={{
+                alignSelf:'center',
+                height: 20,
+                marginBottom: 20,
+                color:'white',
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                paddingLeft:60,
+                paddingRight:60
+              }} 
+              name="region"
+              placeholder="Enter Region"
+              onChangeText={handleChange('region')}
+              onBlur={handleBlur('region')}
+              value={values.region}
+            />
+
             {/* Age Textfield */}
             <TextInput 
               style={{
