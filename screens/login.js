@@ -4,6 +4,12 @@ import { Formik } from 'formik';
 
 export default function Login({navigation}) {
 
+  const [emailData, setEmailData] = useState(''); //add emailData to state
+  const [isEmailValid, setIsEmailValid] = useState(false); //used to see if the email is valid (through regex)
+  const [passwordData, setPasswordData] = useState(-1); //add passwordData to state
+  const [isPasswordValid, setIsPasswordValid] = useState(false); //used to see if the password is valid (through regex)
+
+
     const pressHandler = () => {
         navigation.navigate('Signup');
     }
@@ -30,12 +36,12 @@ export default function Login({navigation}) {
             
           <Formik 
             
-            initialValues={{username: '', password:''}}
+            initialValues={{email: '', password:''}}
             onSubmit={values => console.log(values)}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
               <>
-                {/* Username Textfield*/}
+                {/* Email Textfield*/}
                 <TextInput 
                   style={{
                     alignSelf:'center',
@@ -47,11 +53,11 @@ export default function Login({navigation}) {
                     paddingLeft:60,
                     paddingRight:60
                   }} 
-                  name="username"
-                  placeholder="Enter Username"
-                  onChangeText={handleChange('username')}
-                  onBlur={handleBlur('username')}
-                  value={values.username}
+                  name="email"
+                  placeholder="Enter Email"
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
                   
                 />
                 {/* Password Textfield*/}
