@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { max } from 'react-native-reanimated';
+import * as fb from '../components/Firebase/firebase';
+import * as utils from '../components/misc/utilities';
+
+
 
 
 const Emoji = props => (                               //reusable code for emojis that wont cause errors
@@ -102,127 +106,116 @@ function GetCurrent(regionID)
 }
 
 function AvgRating(regionID)           //calc avg rating will eventually go through all saved review scores
-{
+{   
     let x = regionID;
     let sum = 0;
     for (let i = 0; i < x; i++) {
         sum++;
     }
+
+        /*       Uncomment when Reviews are completed
+    db.collection("reviews").where("regionID", "==", regionID).orderBy("date", "desc").limit(10).get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+            ReviewInfo = doc.data();
+        });
+    })
+    .catch((error) =>{ console.error (error.message); });
+    */
+
+
     return sum/x;
 }
 
 export default function Region({navigation}) {
 
-    const pressHandler = () => {
-        navigation.navigate('Rating');
-    }
 
-
-
+    //let ReviewInfo;
+    let db = fb.fb.firestore();
+    const [current, setCurrent] = useState(-1);
+    const [Max, setMax] = useState(-1);
     let regionN = getRegionNME();
     let regionID = getRegionID(regionN);
-    let Max = GetMaxCases();
-    let current = GetCurrent(regionID);
+
+    db.collection("cases").where("regionID", "==", regionID).orderBy("date", "desc").limit(1).get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+          setCurrent(doc.get("activeCases"));
+        });
+    })
+    .catch((error) =>{ console.error (error.message); });
+
+    /*       Uncomment when Reviews are completed
+    db.collection("reviews").where("regionID", "==", regionID).orderBy("date", "desc").limit(10).get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+            ReviewInfo = doc.data();
+        });
+    })
+    .catch((error) =>{ console.error (error.message); });
+    */
+
+   db.collection("max-cases").doc(regionID.toString()).get().then((doc) => {
+        setMax(doc.get("max"));
+    })
+    .catch((error) =>{ console.error (error.message); });   
 
     let Gpercentage = current/Max;       //Government percent       with current setup should be 9/12 = 0.75
 
     let avg = AvgRating(regionID);                                       // 1
-    Upercentage = 1-(avg/10);
+    let Upercentage = 1-(avg/5);
 
     let Drating;  //weighted towards government
     Drating = .6 * Gpercentage + .4 *Upercentage; //weighted 60/40
 
+    let emo;
 
     if(Drating >=.9)
     {
-        return(
-            <View style={styles.container}>
-                <Emoji symbol="🤮" label="everyhingSucks"/>
-            </View>
-        );
+            emo = <Emoji symbol="🤮" label="everyhingSucks"/>
     }
     else if(Drating <.9 && Drating >=.8)
     {
-        return(
-            <View style={styles.container}>
-                    <Emoji symbol="🤢" label="almostEverthingSucks"/>
-            </View>
-        );
+            emo = <Emoji symbol="🤢" label="almostEverthingSucks"/>
     }
     else if(Drating <.8 && Drating >=.7)
     {
-        return(
-            <View style={styles.container}>
-                    <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>
-            </View>
-        );
+            emo = <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>
     }
     else if(Drating <.7 && Drating >=.6)
     {
-        return(
-            <View style={styles.container}>
-                    <Emoji symbol="🤧" label="BestToAvoidPeople"/>
-            </View>
-        );
+            emo = <Emoji symbol="🤧" label="BestToAvoidPeople"/>
     }
     else if(Drating <.6 && Drating >=.5)
     {
-        return(
-            <View style={styles.container}>
-                <Emoji symbol="😷" label="MaskIsn'tOptional"/>
-            </View>
-        );
+            emo = <Emoji symbol="😷" label="MaskIsn'tOptional"/>
     }
     else if(Drating <.5 && Drating >=.4)
     {
-        return(
-            <View style={styles.container}>
-                    <Emoji symbol="😖" label="Notterrible"/>
-            </View>
-        );
+            emo = <Emoji symbol="😖" label="Notterrible"/>
     }
     else if(Drating <.4 && Drating >=.3)
     {
-        return(
-            <View style={styles.container}>
-                    <Emoji symbol="☹️" label="BubbleBurst"/>
-            </View>
-        );
+            emo = <Emoji symbol="☹️" label="BubbleBurst"/>
     }
     else if(Drating <.3 && Drating >=.2)
     {
-        return(
-            <View style={styles.container}>
-                    <Emoji symbol="😐" label="bubbleHasn'tBurst"/>
-            </View>
-        );
+            emo = <Emoji symbol="😐" label="bubbleHasn'tBurst"/>
     }
     else if(Drating <.2 && Drating >=.1)
     {
-        return(
-            <View style={styles.container}>
-                    <Emoji symbol="🙂" label="nearlyNormal"/>
-            </View>
-        );
+            emo = <Emoji symbol="🙂" label="nearlyNormal"/>
     }
     else if(Drating <.1)
     {
-        return(
-            <View style={styles.container}>
-                    <Emoji symbol="😄" label="CovidWhatsThat?"/>
-            </View>
-        );
+            emo = <Emoji symbol="😄" label="CovidWhatsThat?"/>
     }
     else
     {
-        return(
-            <View>
-                <Text>how did you get here?</Text>
-            </View>
-        )
+            emo = <Text>error</Text>
     }
-
-
+    return(
+        <View>
+            {emo}
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
