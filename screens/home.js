@@ -23,7 +23,7 @@ export default function Home({navigation}) {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <Image style={styles.image} source={require('../assets/map.png')} />
+                <Image style={styles.image} source={require('../source/assets/map.png')} />
                 { region.map((item) => {
                     return (
                         <View key={item.key}>
