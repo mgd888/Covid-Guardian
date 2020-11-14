@@ -17,8 +17,8 @@ const dummyData = JSON.parse("{\"articles\": [{\"author\": \"Romain Dillet\",\"t
 export default function News() {
     const [refreshing, setRefreshing] = React.useState(false);
     const [listData, setListData] = React.useState();
+    const [lastFetchedAt, setLastFetchedAt] = React.useState(0);
 
-    let lastFetchedAt;
 
     function getNews() {
         var url = 'http://newsapi.org/v2/everything?' +
@@ -31,7 +31,7 @@ export default function News() {
         fetch(url)
             .then((res) => res.json())
             .then((json) => {
-                lastFetchedAt = new Date();
+                setLastFetchedAt(Date.now);
                 setListData(json.articles);
                 console.log(json);
             })
@@ -40,9 +40,9 @@ export default function News() {
     const onRefresh = React.useCallback(async () => {
         setRefreshing(true);
 
-        let nextRefresh = new Date(lastFetchedAt.getTime() + 5*60000); //only allow refreshes every 5 mins
+        let nextRefresh = new Date(lastFetchedAt + 5*60000); //only allow refreshes every 5 mins
 
-        if(Date.now > nextRefresh)
+        if(Date.now > nextRefresh) //check to see if we need to fetch new data 
         {
             console.log('Fetching new data from API');
             getNews();
@@ -51,26 +51,6 @@ export default function News() {
         {
             console.log('Not fetching new data, please wait 5 minutes');
         }
-
-        
-        // if (listData.length < 10) {
-        //   try {
-        //     let response = await fetch(
-        //       'http://www.mocky.io/v2/5e3315753200008abe94d3d8?mocky-delay=2000ms',
-        //     );
-        //     let responseJson = await response.json();
-        //     console.log(responseJson);
-        //     setListData(responseJson.result.concat(initialData));
-        //     setRefreshing(false)
-        //   } catch (error) {
-        //     console.error(error);
-        //   }
-        // }
-        // else{
-        //   ToastAndroid.show('No more new data available', ToastAndroid.SHORT);
-        //   setRefreshing(false)
-        // }
-        console.log("refreshed");
         setRefreshing(false);
     }, [refreshing]);
 
@@ -92,7 +72,7 @@ export default function News() {
         </TouchableOpacity>
     );
 
-    if(lastFetchedAt == null)
+    if(lastFetchedAt == 0)
         getNews();
 
     return (
@@ -168,7 +148,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '400',
         paddingLeft: 5,
-        //backgroundColor: 'blue',
         flex: 1,
         flexWrap: 'wrap'
     }
