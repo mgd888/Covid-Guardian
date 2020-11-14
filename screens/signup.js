@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {  Alert, StyleSheet, Text, TextInput, View, Button, TouchableOpacity, Picker} from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/Feather';
+
 
 
 import * as fb from '../components/Firebase/firebase';
@@ -76,7 +79,8 @@ export default function Signup({navigation}) {
       navigation.navigate('Login');
       
     }
-
+    
+    
 
     return(
       <View style={styles.container}>
@@ -96,28 +100,7 @@ export default function Signup({navigation}) {
           onChangeText={text => setAgeData(text)}
           onValidation={result => setIsAgeValid(result)}
         />
-        <Picker
-          style={styles.inputdrop} 
-          name = "userRegionID"
-          selectedValue={regionData}
-          onValueChange={text => setRegionData(text)}
-          onValidation={result => setIsRegionValid(result)}
-        >
-          <Picker.Item label="Select Region" value="0" />
-          <Picker.Item label="Far North West" value="1" />
-          <Picker.Item label="Far North Central" value="2" />
-          <Picker.Item label="Far North East" value="3" />
-          <Picker.Item label="North West" value="4" />
-          <Picker.Item label="North Central" value="5" />
-          <Picker.Item label="North East" value="6" />
-          <Picker.Item label="Saskatoon" value="7" />
-          <Picker.Item label="Central West" value="8" />
-          <Picker.Item label="Central East" value="9" />
-          <Picker.Item label="Regina" value="10" />
-          <Picker.Item label="South West" value="11" />
-          <Picker.Item label="South Central" value="12" />
-          <Picker.Item label="South East" value="13" />
-        </Picker>
+        
         <Input 
           style={styles.input} 
           name="email"
@@ -148,7 +131,59 @@ export default function Signup({navigation}) {
           ]}
           secureTextEntry
         />
-        <Button onPress={submitButton} title="Sign Up"/>
+        {/* <Picker
+          mode="dropdown"
+          style={styles.inputdrop} 
+          name = "userRegionID"
+          selectedValue={regionData}
+          onValueChange={text => setRegionData(text)}
+          onValidation={result => setIsRegionValid(result)}
+        >
+        <Picker.Item label="Select Region" value="0" />
+        <Picker.Item label="Far North West" value="1" />
+        <Picker.Item label="Far North Central" value="2" />
+        <Picker.Item label="Far North East" value="3" />
+        <Picker.Item label="North West" value="4" />
+        <Picker.Item label="North Central" value="5" />
+        <Picker.Item label="North East" value="6" />
+        <Picker.Item label="Saskatoon" value="7" />
+        <Picker.Item label="Central West" value="8" />
+        <Picker.Item label="Central East" value="9" />
+        <Picker.Item label="Regina" value="10" />
+        <Picker.Item label="South West" value="11" />
+        <Picker.Item label="South Central" value="12" />
+        <Picker.Item label="South East" value="13" />
+        </Picker> */}
+
+        <DropDownPicker
+        items={[
+            {label: 'Select Region', value: '0'},
+            {label: 'Far North West', value: '1'},
+            {label: 'Far North Central', value: '2'},
+            {label: 'Far North East', value: '3'},
+            {label: 'North West', value: '4'},
+            {label: 'North Central', value: '5'},
+            {label: 'North East', value: '6'},
+            {label: 'Saskatoon', value: '7'},
+            {label: 'Central West', value: '8'},
+            {label: 'Cetral East', value: '9'},
+            {label: 'Regina', value: '10'},
+            {label: 'South West', value: '11'},
+            {label: 'South West', value: '12'},
+            {label: 'South East', value: '13'}
+        ]}
+        defaultValue="0"
+        containerStyle={{height: 30, width: 250, borderColor: 'black', borderWidth:.5}}
+        style={{backgroundColor: '#fafafa'}}
+        dropDownStyle={{backgroundColor: '#fafafa'}}
+        onValueChange={text => setRegionData(text)}
+        onValidation={result => setIsRegionValid(result)}
+        
+        dropDownMaxHeight={240}
+      />
+
+      <Text/>
+      <Button onPress={submitButton} title="Sign Up" />
         
       </View>
         
@@ -163,10 +198,11 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center', 
-    backgroundColor:"grey"
+    backgroundColor:"grey",
+   
+    
   },
   title:{
-    shadowOpacity: 3,
     alignSelf:'center', 
     fontSize: 45,
     color: 'white',
@@ -193,15 +229,11 @@ const styles = StyleSheet.create({
  
   },
   inputdrop:{
-    backgroundColor: 'white',
-    alignSelf:'center',
+    color: 'black',
+    alignItems:'center',
     width: 250,
-    height: 30,
-    marginBottom: 20,
-    borderWidth: 2,
-    paddingLeft:60,
-    paddingRight:60
- 
+    
+    
   },
 });
 
