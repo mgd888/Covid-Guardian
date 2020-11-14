@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { max } from 'react-native-reanimated';
 import * as fb from '../components/Firebase/firebase';
-import * as utils from '../components/misc/utilities';
-
-
+import { getRegionString } from '../components/misc/utilities';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Emoji = props => (                               //reusable code for emojis that wont cause errors
@@ -18,139 +16,66 @@ const Emoji = props => (                               //reusable code for emoji
     </Text>
 );
 
-function getRegionID(region) {          //finds region id by name. reusable
-    let result;
-    switch (region) {
-        case 'Far North West':
-            result = 0;
-            break;
-
-        case 'Far North Central':
-            result = 1;
-            break;
-
-        case 'Far North East':
-            result = 2;
-            break;
-
-        case 'North West':
-            result = 3;
-            break;
-
-        case 'North Central':
-            result = 4;
-            break;
-
-        case 'North East':
-            result = 5;
-            break;
-
-        case 'Saskatoon':
-            result = 6;
-            break;
-
-        case 'Central West':
-            result = 7;
-            break;
-
-        case 'Central East':
-            result = 8;
-            break;
-
-        case 'Regina':
-            result = 9;
-            break;
-
-        case 'South West':
-            result = 10;
-            break;
-
-        case 'South Central':
-            result = 11;
-            break;
-
-        case 'South East':
-            result = 12;
-            break;
-
-        default:
-            result = -1;
-            break;
 
 
-    }
-    return result;
-}
-
-function getRegionNME () {           //will be uneeded at a later point as I will get the name from the previous page
-    let result;
-    result = "Regina";
-    return result;
-}
-
-function GetMaxCases()              // looks at current cases against max recorded. will need to store max in the database for permenancy
-{
-    let current = 12;
-    let max = 10
-    if(current > max)
-    {
-        max = current;
-    }
-    return max;
-}
-
-function GetCurrent(regionID)
-{
-    let current = regionID;             //will use ID to find the correct datapoint
-    return current;
-}
 
 function AvgRating(regionID)           //calc avg rating will eventually go through all saved review scores
 {   
+
     let x = regionID;
     let sum = 0;
     for (let i = 0; i < x; i++) {
         sum++;
     }
-
-        /*       Uncomment when Reviews are completed
+    /* Test when there is 10 reviews
+    let sum;
+    const [Output, setavg] = useState(-1);
     db.collection("reviews").where("regionID", "==", regionID).orderBy("date", "desc").limit(10).get().then((snapshot) => {
         snapshot.forEach((doc) => {
-            ReviewInfo = doc.data();
-        });
+            sum = doc.get("rating") + sum;
+        })
+        setavg(sum);
     })
     .catch((error) =>{ console.error (error.message); });
+
+    return Output/10;
     */
-
-
-    return sum/x;
+   if(sum/x == NaN)
+   {
+        return 0;
+   }
+   else
+   {
+        return sum/x;
+   }
 }
 
 export default function Region({navigation}) {
 
-
-    //let ReviewInfo;
+    //set up and functions 
     let db = fb.fb.firestore();
     const [current, setCurrent] = useState(-1);
+    const [icu, seticu] = useState(-1);
+    const [inpatient, setInpatient] = useState(-1);
+    const [newCases, setNewCases] = useState(-1);
+    const [recover, setRecover] = useState(-1);
+    const [total, setTotal] = useState(-1);
     const [Max, setMax] = useState(-1);
-    let regionN = getRegionNME();
-    let regionID = getRegionID(regionN);
+    let regionID =  navigation.getParam('regionID')
+    let regionName = getRegionString(regionID);
+
 
     db.collection("cases").where("regionID", "==", regionID).orderBy("date", "desc").limit(1).get().then((snapshot) => {
         snapshot.forEach((doc) => {
           setCurrent(doc.get("activeCases"));
+          seticu(doc.get("icuHospitalizations"));
+          setInpatient(doc.get("inpatientHospitalizations"));
+          setNewCases(doc.get("newCases"));
+          setRecover(doc.get("recoveredCases"));
+          setTotal(doc.get("totalCases"));
         });
     })
     .catch((error) =>{ console.error (error.message); });
-
-    /*       Uncomment when Reviews are completed
-    db.collection("reviews").where("regionID", "==", regionID).orderBy("date", "desc").limit(10).get().then((snapshot) => {
-        snapshot.forEach((doc) => {
-            ReviewInfo = doc.data();
-        });
-    })
-    .catch((error) =>{ console.error (error.message); });
-    */
 
    db.collection("max-cases").doc(regionID.toString()).get().then((doc) => {
         setMax(doc.get("max"));
@@ -160,6 +85,7 @@ export default function Region({navigation}) {
     let Gpercentage = current/Max;       //Government percent       with current setup should be 9/12 = 0.75
 
     let avg = AvgRating(regionID);                                       // 1
+    console.log(avg);
     let Upercentage = 1-(avg/5);
 
     let Drating;  //weighted towards government
@@ -221,5 +147,20 @@ export default function Region({navigation}) {
 const styles = StyleSheet.create({
     container: {
         padding: 24,
+    },
+    title: {
+        fontSize: 20,
+        paddingLeft: 55,
+        paddingRight: 55,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderRadius: 6,
+        backgroundColor: '#61dafb',
+        width: 300,
+        textAlign: 'left',
     }
+
+
 });
