@@ -154,7 +154,7 @@ export default function Region({navigation}) {
     }
 
     return(
-        <View>
+        <View st>
             <Text style = {styles.title}>{regionName}</Text>
             {emo}
         </View>

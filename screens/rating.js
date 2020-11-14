@@ -36,8 +36,8 @@ export default function Rating(props) {
         let reviewInt = parseInt(reviewData); //convert to number
 
         //check that the comment is less than or equal to 100
-        if(!isCommentValid && commentData.length != 0) {
-            Alert.alert('Error', 'Please ensure the comment is under 100 characters.');
+        if(!isCommentValid) {
+            Alert.alert('Error', 'Please ensure the comment is not empty and under 100 characters.');
             return;
         }
 
@@ -50,10 +50,14 @@ export default function Rating(props) {
         //Check if the region id is valid
         if(regionID == -1){
             Alert.alert('Error', 'Invalid region ID.');
-            return;
+            //return;
         }
 
         //TODO: check if user authed
+        if(!fb.auth.currentUser) {
+            Alert.alert('Error', 'You are not signed in');
+            return;
+        }
 
         //If we got to this point we have valid data that can be submitted
 
@@ -63,7 +67,7 @@ export default function Rating(props) {
             date: fb.fb.firestore.Timestamp.now(),
             rating: reviewInt,
             regionID: regionID,
-            userID: "1"
+            userID: fb.auth.currentUser.uid
         };
 
 
@@ -86,6 +90,28 @@ export default function Rating(props) {
             console.log(data);
             props.navigation.pop(); //return to the previous screen
         }
+    }
+
+    //Check to see if the user is not logged in
+    if(!fb.auth.currentUser) {
+        //Prompt the user about the error and give them the option to login or register
+        Alert.alert('Error', 'You must be signed in to submit a review', 
+            [
+                {
+                    text: 'Log in',
+                    onPress: () => props.navigation.popToTop() && props.navigation.navigate('Login') //reset the current navigation stack and change the view to the login screen
+                },
+                {
+                    text: 'Sign up',
+                    onPress: () => props.navigation.popToTop() && props.navigation.navigate('Signup') //reset the current navigation stack and change the view to the signup screen
+                },
+                {
+                    text: 'Cancel',
+                    onPress: () => props.navigation.pop(), //Give the user the option to go to the previous screen if they dont want to use an account
+                    style: 'cancel'
+                }
+            ],
+            { cancelable: false });
     }
 
 
@@ -116,7 +142,7 @@ export default function Rating(props) {
                             <Input 
                                 style={styles.textInput}
                                 placeholder='Comment... (optional)'
-                                pattern={'^.{0,100}$'}
+                                pattern={'^.{1,100}$'}
                                 onChangeText={text => setCommentData(text)}
                                 onValidation={result => setIsCommentValid(result)}/>
                         </View>
