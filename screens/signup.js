@@ -73,6 +73,7 @@ export default function Signup({navigation}) {
       }
       //if nothing wrong connect to firebase
       fb.registerUser(emailData, passwordData, nameData, ageData, regionData, navigation);
+      navigation.navigate('Login');
       
     }
 
@@ -96,7 +97,7 @@ export default function Signup({navigation}) {
           onValidation={result => setIsAgeValid(result)}
         />
         <Picker
-          style={styles.input} 
+          style={styles.inputdrop} 
           name = "userRegionID"
           selectedValue={regionData}
           onValueChange={text => setRegionData(text)}
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor:"grey"
   },
   title:{
-    shadowOpacity: 5,
+    shadowOpacity: 3,
     alignSelf:'center', 
     fontSize: 45,
     color: 'white',
@@ -186,6 +187,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color:'black',
     borderColor: 'black',
+    borderWidth: 2,
+    paddingLeft:60,
+    paddingRight:60
+ 
+  },
+  inputdrop:{
+    backgroundColor: 'white',
+    alignSelf:'center',
+    width: 250,
+    height: 30,
+    marginBottom: 20,
     borderWidth: 2,
     paddingLeft:60,
     paddingRight:60
