@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {  Alert, StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
-import { Formik } from 'formik';
+
 
 import * as fb from '../components/Firebase/firebase';
 import Input from '../components/Input';
@@ -13,6 +13,7 @@ export default function Login({navigation}) {
     const [passwordData, setPasswordData] = useState(''); //add reviewData to state
     const [isPasswordValid, setIsPasswordValid] = useState(false); //used to see if the rating is valid (through regex)
 
+    
     const submitButton = () => {
 
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -39,6 +40,8 @@ export default function Login({navigation}) {
       fb.loginUser(emailData,passwordData,navigation);
       
     }
+
+    
 
     const pressHandler = () => {
         navigation.navigate('Signup');
