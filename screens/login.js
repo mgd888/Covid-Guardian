@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+<<<<<<< Updated upstream
 import {  StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
+=======
+import {  Alert, StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
+
+>>>>>>> Stashed changes
 
 export default function Login({navigation}) {
 
@@ -15,6 +20,7 @@ export default function Login({navigation}) {
     }
 
 
+<<<<<<< Updated upstream
     return (
     
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:"grey" }}>
@@ -81,6 +87,13 @@ export default function Login({navigation}) {
                 <Button onPress={handleSubmit} title="Log in"/>
               </>
             )}
+=======
+      //check if email formatt is correct
+      if(reg.test(emailData) == false){
+        Alert.alert('Error', 'Incorrect email format');
+        return;
+      }
+>>>>>>> Stashed changes
 
           </Formik>
 
