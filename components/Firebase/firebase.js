@@ -48,6 +48,7 @@ export function registerUser(email, password, name, userRegionID, userAge, navig
         navigation.navigate('Home');
     }).catch((error) => {
         console.log(error);
+        Alert.alert('Unable to Sign up.',error.message);
     });
 }
 
