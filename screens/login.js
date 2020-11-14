@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {  Alert, StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
-import { Formik } from 'formik';
 
 import * as fb from '../components/Firebase/firebase';
 import Input from '../components/Input';
