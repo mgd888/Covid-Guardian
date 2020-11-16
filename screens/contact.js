@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Linking, Platform, ImageBackground, Dimensions } from 'react-native';
 
 export default class App extends Component {
     makeCall = () => {
@@ -41,6 +41,23 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 24,
+        padding: 25,
+    },
+
+    background: {
+        flex: 1,
+        width: null,
+        height: null,
+        
+    },
+
+    text: {
+        fontSize: 16,
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
+
+    phone: {
+        color: 'blue',
     }
 });
