@@ -1,14 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-<<<<<<< Updated upstream
-export default function Contact() {
-    return (
-        <View style={styles.container}>
-            <Text>Contact Screen</Text>
-        </View>
-    );
-=======
 export default class App extends Component {
     makeCall = () => {
         let phoneNumber = '';
@@ -45,7 +37,6 @@ export default class App extends Component {
             </ImageBackground>
         );
     } 
->>>>>>> Stashed changes
 }
 
 const styles = StyleSheet.create({

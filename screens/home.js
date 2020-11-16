@@ -8,13 +8,6 @@ export default function Home({navigation}) {
     }
 
     return (
-<<<<<<< Updated upstream
-        <View style={styles.container}>
-            <Text>Home Screen</Text>
-            <Button title='Region View' onPress={pressHandler} />
-        </View>
-    );
-=======
         <ScrollView>
             <View style={styles.container}>
                 <Image style={styles.image} source={require('../source/assets/map.png')} />
@@ -30,7 +23,6 @@ export default function Home({navigation}) {
             </View>
         </ScrollView>
     )
->>>>>>> Stashed changes
 }
 
 const styles = StyleSheet.create({
