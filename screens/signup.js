@@ -100,32 +100,7 @@ export default function Signup({navigation}) {
           onChangeText={text => setAgeData(text)}
           onValidation={result => setIsAgeValid(result)}
         />
-        <DropDownPicker
-        items={[
-            {label: 'Select Region', value: '0'},
-            {label: 'Far North West', value: '1'},
-            {label: 'Far North Central', value: '2'},
-            {label: 'Far North East', value: '3'},
-            {label: 'North West', value: '4'},
-            {label: 'North Central', value: '5'},
-            {label: 'North East', value: '6'},
-            {label: 'Saskatoon', value: '7'},
-            {label: 'Central West', value: '8'},
-            {label: 'Cetral East', value: '9'},
-            {label: 'Regina', value: '10'},
-            {label: 'South West', value: '11'},
-            {label: 'South West', value: '12'},
-            {label: 'South East', value: '13'}
-        ]}
-        defaultValue="0"
-        containerStyle={{height: 30, width: 250, borderColor: 'black', borderWidth:.5}}
-        style={{backgroundColor: '#fafafa'}}
-        dropDownStyle={{backgroundColor: '#fafafa'}}
-        onValueChange={text => setRegionData(text)}
-        onValidation={result => setIsRegionValid(result)}
         
-        dropDownMaxHeight={240}
-      />
         <Input 
           style={styles.input} 
           name="email"
@@ -180,7 +155,32 @@ export default function Signup({navigation}) {
         <Picker.Item label="South East" value="13" />
         </Picker> */}
 
+        <DropDownPicker
+        items={[
+            {label: 'Select Region', value: '0'},
+            {label: 'Far North West', value: '1'},
+            {label: 'Far North Central', value: '2'},
+            {label: 'Far North East', value: '3'},
+            {label: 'North West', value: '4'},
+            {label: 'North Central', value: '5'},
+            {label: 'North East', value: '6'},
+            {label: 'Saskatoon', value: '7'},
+            {label: 'Central West', value: '8'},
+            {label: 'Cetral East', value: '9'},
+            {label: 'Regina', value: '10'},
+            {label: 'South West', value: '11'},
+            {label: 'South West', value: '12'},
+            {label: 'South East', value: '13'}
+        ]}
+        defaultValue="0"
+        containerStyle={{height: 30, width: 250, borderColor: 'black', borderWidth:.5}}
+        style={{backgroundColor: '#fafafa'}}
+        dropDownStyle={{backgroundColor: '#fafafa'}}
+        onValueChange={text => setRegionData(text)}
+        onValidation={result => setIsRegionValid(result)}
         
+        dropDownMaxHeight={240}
+      />
 
       <Text/>
       <Button onPress={submitButton} title="Sign Up" />
@@ -232,10 +232,7 @@ const styles = StyleSheet.create({
     color: 'black',
     alignItems:'center',
     width: 250,
-    flex:1,
-
     
     
   },
 });
-
