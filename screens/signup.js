@@ -92,6 +92,33 @@ export default function Signup({navigation}) {
           onChangeText={text => setNameData(text)}
           onValidation={result => setIsNameValid(result)}
         />
+        <DropDownPicker
+        items={[
+            {label: 'Select Region', value: '0'},
+            {label: 'Far North West', value: '1'},
+            {label: 'Far North Central', value: '2'},
+            {label: 'Far North East', value: '3'},
+            {label: 'North West', value: '4'},
+            {label: 'North Central', value: '5'},
+            {label: 'North East', value: '6'},
+            {label: 'Saskatoon', value: '7'},
+            {label: 'Central West', value: '8'},
+            {label: 'Cetral East', value: '9'},
+            {label: 'Regina', value: '10'},
+            {label: 'South West', value: '11'},
+            {label: 'South West', value: '12'},
+            {label: 'South East', value: '13'}
+        ]}
+        defaultValue="0"
+        containerStyle={{height: 30, width: 250}}
+        style={styles.inputdrop}
+        dropDownStyle={{backgroundColor: '#fafafa', flex:1}}
+        onValueChange={text => setRegionData(text)}
+        onValidation={result => setIsRegionValid(result)}
+
+        dropDownMaxHeight={240}
+      />
+        <Text/>
         <Input 
           style={styles.input} 
           name="userAge"
@@ -215,4 +242,3 @@ const styles = StyleSheet.create({
     
   },
 });
-
