@@ -110,7 +110,7 @@ export default function Signup({navigation}) {
             {label: 'South West', value: '12'},
             {label: 'South East', value: '13'}
         ]}
-        defaultValue="0"
+        defaultValue='0'
         containerStyle={{height: 30, width: 250}}
         style={styles.inputdrop}
         dropDownStyle={{backgroundColor: '#fafafa', flex:1}}
