@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
     },
     icon: {
         position: 'absolute',
-        right: (Platform.OS === 'android') ? 350 : 290,
+        right: (Platform.OS === 'android') ? 350 : 280,
     }
 });
