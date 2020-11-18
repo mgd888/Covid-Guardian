@@ -33,13 +33,13 @@ const RootDrawerNavigator = createDrawerNavigator({
         navigationOptions: {
             drawerIcon: ({ tintColor }) => <Feather name="link" size={18} color={tintColor} />
         }
-    },
-    Profile: {
+    }
+    /*Profile: {
         screen: ProfileStack,
         navigationOptions: {
             drawerIcon: ({ tintColor }) => <Feather name="user" size={18} color={tintColor} />
         }
-    }
+    }*/
 });
 
 export default createAppContainer(RootDrawerNavigator);
