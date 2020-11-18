@@ -50,7 +50,7 @@ export default function Signup({navigation}) {
       }
 
       //check if region is empty
-      if(regionData==0){
+      if(regionData=='0'){
         Alert.alert('Error', 'Fill region field please');
         return;
       }
@@ -114,8 +114,7 @@ export default function Signup({navigation}) {
         style={styles.inputdrop}
         dropDownStyle={{backgroundColor: '#fafafa', flex:1}}
         onValueChange={text => setRegionData(text)}
-        onValidation={result => setIsRegionValid(result)}
-
+        
         dropDownMaxHeight={240}
       />
         <Text/>
