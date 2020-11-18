@@ -7,11 +7,11 @@ export default function Profile({navigation}) {
     const [refresh, setRefresh] = useState(0);
 
     const didFocus = navigation.addListener(
-        'wellFocus',
+        'didFocus',
         payload => {
-          setRefresh(Math.random());
+            setRefresh(Math.random());
         }
-      );
+    );
 
     if(!fb.auth.currentUser) {
         const pressHandler1 = () => {
@@ -46,7 +46,8 @@ export default function Profile({navigation}) {
        }
         return (
             <View style={styles.container}>
-                <Text style={styles.texture}>Welcome to COVID Guardian, {fb.auth.currentUser.displayName}.</Text>
+                <Text style={styles.texture}>Welcome to COVID Guardian, {fb.auth.currentUser.displayName}.{"\n"}</Text>
+                <Text style={styles.texture}>All data used in COVID Guardian are based on the information from Goverment of Saskatchewan. If you need more details, please click on the links on contact page.</Text>
                 <TouchableHighlight style={styles.link} onPress={pressHandler}>
                     <Text style={styles.button}>Log out</Text>
                 </TouchableHighlight>
@@ -69,7 +70,6 @@ const styles = StyleSheet.create({
         color: 'lightgreen',
         fontSize: 25,
         fontWeight: 'bold',
-        fontFamily: 'Comic Sans MS',
     },
 
     texture: {
