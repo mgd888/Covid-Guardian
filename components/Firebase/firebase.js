@@ -27,7 +27,7 @@ export const auth = firebase.auth();
 export async function loginUser(email, password, navigation) {
     await auth.signInWithEmailAndPassword(email, password).then((cred) => {
         console.log(`${email} has logged in successfully`);
-        navigation.navigate('Home');
+        navigation.popToTop();
 
     }).catch((error) => {
         console.log(`${email} unable to login: ${error.code}`);
@@ -40,15 +40,14 @@ export function registerUser(email, password, name, userRegionID, userAge, navig
     auth.createUserWithEmailAndPassword(email, password).then((cred) => {
         cred.user.updateProfile({displayName: name});
         return db.collection('users').doc(cred.user.uid).set({
-            regionID: parseInt(userRegionID),
+            regionID: userRegionID,
             age: parseInt(userAge)
         });
     }).then(() => {
         console.log(`User ${email} registered successful!`);
-        navigation.navigate('Home');
+        navigation.popToTop();
     }).catch((error) => {
         console.log(error);
-        Alert.alert('Unable to Sign up.',error.message);
     });
 }
 
