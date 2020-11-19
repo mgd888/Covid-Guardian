@@ -1,6 +1,4 @@
 
-export const prod = true;
-
 export function getRegionString(regionID) {
     let result;
     switch (regionID) {
