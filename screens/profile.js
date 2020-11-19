@@ -7,23 +7,21 @@ export default function Profile({navigation}) {
     const [refresh, setRefresh] = useState(0);
 
     const didFocus = navigation.addListener(
-        'willFocus',
+        'didFocus',
         payload => {
-            console.log("load");
-          setRefresh(Math.random());
+            setRefresh(Math.random());
         }
-      );
-
-    console.log(fb.auth.currentUser);
+    );
 
     if(!fb.auth.currentUser) {
         const pressHandler1 = () => {
-            //setRefresh(1);
+            setRefresh(1);
             navigation.navigate('Login');
         }
 
         const pressHandler2 = () => {
             //setRefresh(1);
+
             navigation.navigate('Signup');
         }
 
@@ -49,7 +47,8 @@ export default function Profile({navigation}) {
        }
         return (
             <View style={styles.container}>
-                <Text style={styles.texture}>Welcome to COVID Guardian, {fb.auth.currentUser.displayName}.</Text>
+                <Text style={styles.texture}>Welcome to COVID Guardian, {fb.auth.currentUser.displayName}.{"\n"}</Text>
+                <Text style={styles.texture}>All data used in COVID Guardian are based on the information from Goverment of Saskatchewan. If you need more details, please click on the links on contact page.</Text>
                 <TouchableHighlight style={styles.link} onPress={pressHandler}>
                     <Text style={styles.button}>Log out</Text>
                 </TouchableHighlight>
@@ -61,6 +60,39 @@ export default function Profile({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 24,
+        padding: 20,
+        flex: 1,
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        backgroundColor:"grey"
+    },
+
+    info: {
+        color: 'lightgreen',
+        fontSize: 25,
+        fontWeight: 'bold',
+    },
+
+    texture: {
+        fontSize: 22,
+        color: 'white',
+    },
+
+    link: {
+        marginRight: 40,
+        marginLeft: 40,
+        marginTop: 17,
+        marginBottom: 30,
+        width: 100,
+    },
+
+    button: {
+        paddingTop: 7,
+        paddingBottom: 7,
+        color: '#fff',
+        textAlign: 'center',
+        backgroundColor: '#68a0cf',
+        borderWidth: 1,
+        borderColor: '#fff'
     }
 });

@@ -2,17 +2,26 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import Login from '../screens/login';
 import Signup from '../screens/signup';
+import Profile from '../screens/profile';
 import Header from '../shared/header';
 import React from 'react';
 import Subheader from '../shared/subheader';
 
 
 const screens = {
+    Profile: {
+        screen: Profile,
+        navigationOptions: ({ navigation }) => {
+            return {
+                headerTitle: () => <Header navigation={navigation} />,
+            };
+        }
+    },
     Login: {
         screen: Login,
         navigationOptions: ({ navigation }) => {
             return {
-                headerTitle: () => <Header navigation={navigation} />,
+                headerTitle: () => <Subheader navigation={navigation} />,
             };
         }
     },
@@ -24,6 +33,7 @@ const screens = {
             };
         }
     }
+  
 }
 
 const AccountStack = createStackNavigator(screens);
