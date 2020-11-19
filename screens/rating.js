@@ -67,7 +67,7 @@ export default function Rating(props) {
             date: fb.fb.firestore.Timestamp.now(),
             rating: reviewInt,
             regionID: regionID,
-            userID: fb.auth.currentUser.uid
+            userName: fb.auth.currentUser.displayName
         };
 
 

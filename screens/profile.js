@@ -20,7 +20,8 @@ export default function Profile({navigation}) {
         }
 
         const pressHandler2 = () => {
-            setRefresh(1);
+            //setRefresh(1);
+
             navigation.navigate('Signup');
         }
 
@@ -40,7 +41,7 @@ export default function Profile({navigation}) {
     }
     else{
        const pressHandler = () => {
-            setRefresh(1);
+            //setRefresh(1);
             fb.logout();
             navigation.navigate('Home');
        }

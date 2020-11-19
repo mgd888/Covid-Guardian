@@ -44,6 +44,7 @@ export default function Signup({navigation}) {
         Alert.alert('Error', 'Fill age field please');
         return;
       }
+
       if(ageData<16){
         Alert.alert('Error', 'Must be atleast 16 years old');
         return;
@@ -75,7 +76,7 @@ export default function Signup({navigation}) {
         return;
       }
       //if nothing wrong connect to firebase
-      fb.registerUser(emailData, passwordData, nameData, ageData, regionData, navigation);
+      fb.registerUser(emailData, passwordData, nameData, regionData, ageData, navigation);
       navigation.navigate('Login');
       
     }
@@ -109,11 +110,11 @@ export default function Signup({navigation}) {
             {label: 'South West', value: '12'},
             {label: 'South East', value: '13'}
         ]}
-        defaultValue="0"
+        defaultValue='0'
         containerStyle={{height: 30, width: 250}}
         style={styles.inputdrop}
         dropDownStyle={{backgroundColor: '#fafafa', flex:1}}
-        onValueChange={text => setRegionData(text)}
+        onChangeItem={text => setRegionData(text)}
         onValidation={result => setIsRegionValid(result)}
 
         dropDownMaxHeight={240}

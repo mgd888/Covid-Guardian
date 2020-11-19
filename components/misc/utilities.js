@@ -1,5 +1,5 @@
 
-export const prod = false;
+export const prod = true;
 
 export function getRegionString(regionID) {
     let result;
