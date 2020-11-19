@@ -230,8 +230,9 @@ export default function Region({navigation}) {
                     </TouchableOpacity>
                 </View>
 
+
                 {item.map((review) => (
-                    <View style={styles.Concomm}>
+                    <View style={styles.Concomm} key={review.key}>
                         <Text style={styles.user}>{review.userName} - Rating: {review.rating}</Text>
                         <Text>{review.comment}</Text>
                     </View>  
@@ -241,11 +242,6 @@ export default function Region({navigation}) {
         </ScrollView>
     )
 }
-
-//<FlatList
-//data={item}
-//renderItem={renderItem}
-///>
 
 //bluebuttons for most thing default style otherwise
 const styles = StyleSheet.create({
