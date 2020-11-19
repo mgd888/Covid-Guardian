@@ -221,7 +221,7 @@ export default function Region({navigation}) {
                     </Text>
                 </View>
                 <View>
-                    <TouchableOpacity onPress={() => navigation.navigate('Rating', region)}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Rating', {regionID: regionID})}>
                         <Text style={styles.button}>Add Rating.</Text>
                     </TouchableOpacity>
                 </View>
