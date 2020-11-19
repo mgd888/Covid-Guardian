@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
 
     info: {
         color: 'lightgreen',
-        fontSize: 25,
+        fontSize: 18,
         fontWeight: 'bold',
     },
 
     texture: {
-        fontSize: 22,
+        fontSize: 17,
         color: 'white',
     },
 
