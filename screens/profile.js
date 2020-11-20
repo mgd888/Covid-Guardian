@@ -20,8 +20,7 @@ export default function Profile({navigation}) {
         }
 
         const pressHandler2 = () => {
-            //setRefresh(1);
-
+            setRefresh(1);
             navigation.navigate('Signup');
         }
 
@@ -32,7 +31,7 @@ export default function Profile({navigation}) {
                 <TouchableHighlight style={styles.link} onPress={pressHandler1}>
                     <Text style={styles.button}>Login</Text>
                 </TouchableHighlight>
-                <Text style={styles.texture}>If you don't have an account, please sign up better use of COVID Guardian.</Text>
+                <Text style={styles.texture}>If you don't have an account, please sign up for better use of COVID Guardian.</Text>
                 <TouchableHighlight style={styles.link} onPress={pressHandler2}>
                     <Text style={styles.button}>Sign up</Text>
                 </TouchableHighlight>
@@ -41,7 +40,7 @@ export default function Profile({navigation}) {
     }
     else{
        const pressHandler = () => {
-            //setRefresh(1);
+            setRefresh(1);
             fb.logout();
             navigation.navigate('Home');
        }
@@ -69,12 +68,12 @@ const styles = StyleSheet.create({
 
     info: {
         color: 'lightgreen',
-        fontSize: 25,
+        fontSize: 18,
         fontWeight: 'bold',
     },
 
     texture: {
-        fontSize: 22,
+        fontSize: 17,
         color: 'white',
     },
 
