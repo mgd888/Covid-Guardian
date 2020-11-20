@@ -15,12 +15,10 @@ export default function Profile({navigation}) {
 
     if(!fb.auth.currentUser) {
         const pressHandler1 = () => {
-            setRefresh(1);
             navigation.navigate('Login');
         }
 
         const pressHandler2 = () => {
-            setRefresh(1);
             navigation.navigate('Signup');
         }
 
