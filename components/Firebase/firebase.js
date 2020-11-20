@@ -40,7 +40,7 @@ export function registerUser(email, password, name, userRegionID, userAge, navig
     auth.createUserWithEmailAndPassword(email, password).then((cred) => {
         cred.user.updateProfile({displayName: name});
         return db.collection('users').doc(cred.user.uid).set({
-            regionID: userRegionID,
+            regionID: parseInt(userRegionID),
             age: parseInt(userAge)
         });
     }).then(() => {
