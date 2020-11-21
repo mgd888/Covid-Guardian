@@ -42,6 +42,7 @@ export default function Region({navigation}) {
     const [newCases, setNewCases] = useState(-1);
     const [recover, setRecover] = useState(-1);
     const [total, setTotal] = useState(-1);
+    const [date, setDate] = useState(-1);
 
     //max data
     const [Max, setMax] = useState(-1);
@@ -77,6 +78,7 @@ export default function Region({navigation}) {
                 setNewCases(doc.get("newCases"));
                 setRecover(doc.get("recoveredCases"));
                 setTotal(doc.get("totalCases"));
+                setDate(doc.get("date").toDate().toDateString());
                 });
         })
         .catch((error) =>{ console.error (error.message); });
@@ -193,7 +195,7 @@ export default function Region({navigation}) {
                         Statistics
                     </Text>
                     <Text>
-                        Current Cases: {current}
+                        Active Cases: {current}
                     </Text>
 
                     <Text>
@@ -217,19 +219,24 @@ export default function Region({navigation}) {
                     </Text>
 
                     <Text>
-                        Highest recorded Cases at one time: {Max}
+                        Highest Recorded Cases at One Time: {Max}
                     </Text>
+
+                    <Text style={styles.caseDate}>Reported on: {date}</Text>
                 </View>
-                <View>
+                <View style={styles.button}>
                     <TouchableOpacity onPress={() => navigation.navigate('Rating', {regionID: regionID})}>
-                        <Text style={styles.button}>Add Rating.</Text>
+                        <Text style={styles.buttonText}>Add Rating</Text>
                     </TouchableOpacity>
                 </View>
 
-                <FlatList
-                data={item}
-                renderItem={renderItem}
-                />
+
+                {item.map((review) => (
+                    <View style={styles.Concomm} key={review.key}>
+                        <Text style={styles.user}>{review.userName} - Rating: {review.rating}</Text>
+                        <Text>{review.comment}</Text>
+                    </View>  
+                ))}
 
             </View>
         </ScrollView>
@@ -239,7 +246,7 @@ export default function Region({navigation}) {
 //bluebuttons for most thing default style otherwise
 const styles = StyleSheet.create({
     container: {                         //Base format
-        padding: 24,
+        padding: 15,
         fontSize: 20,
         overflow: 'hidden',
         justifyContent: 'center',
@@ -247,15 +254,16 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
+        alignItems: 'stretch'
     },
     title: {                            //Title of page/region
         fontSize: 30,
-        paddingLeft: 55,
-        paddingRight: 55,
+        //paddingLeft: 55,
+        //paddingRight: 55,
         paddingTop: 10,
         paddingBottom: 10,
         fontWeight: "bold",
-        width: 300,
+        //width: 300,
         borderRadius: 6,
         textAlign: 'center',
         backgroundColor: '#3DA5E0',
@@ -311,7 +319,7 @@ const styles = StyleSheet.create({
 
 
     button: {                  //Pressable button
-        fontSize: 20,
+        
         paddingLeft: 55,
         paddingRight: 55,
         paddingTop: 10,
@@ -321,8 +329,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         backgroundColor: '#61dafb',
-        width: 280,
-        textAlign: 'left',
+        //width: 280,
+        
+    },
+
+    buttonText: {
+        fontSize: 20,
+        textAlign: 'center',
     },
 
 
@@ -331,7 +344,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderWidth: 1,
         padding: 10,
-        width: 280, 
+        //width: 280, 
         textAlign: 'left',
         backgroundColor: '#3DA5E0',
     },
@@ -339,5 +352,10 @@ const styles = StyleSheet.create({
     user: {                  //Username
         fontWeight: "bold",
     },
+
+    caseDate: {
+        fontStyle: 'italic', 
+        marginTop: 10
+    }
 
 });

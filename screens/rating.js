@@ -69,27 +69,19 @@ export default function Rating(props) {
             regionID: regionID,
             userName: fb.auth.currentUser.displayName
         };
+        
+        let db = fb.fb.firestore(); //reference to the firestore
 
+        console.log('Attempting to submit review to firebase...');
 
-        //Check if we are in testing mode
-        if(utils.prod) {
-            let db = fb.fb.firestore(); //reference to the firestore
-
-            console.log('Attempting to submit review to firebase...');
-
-            //attempt to submit the data to ratings
-            db.collection('ratings').doc().set(data).then(() => {
-                Alert.alert('Success!', 'Your review has been submitted. Thank you for your input!');
-                props.navigation.pop(); //return to the previous screen
-            }).catch((error) => {
-                Alert.alert('Unable to submit review', error.message);
-                console.error('an error has occured with submitting the review: ' + error.code);
-            });
-        }
-        else{
-            console.log(data);
+        //attempt to submit the data to ratings
+        db.collection('ratings').doc().set(data).then(() => {
+            Alert.alert('Success!', 'Your review has been submitted. Thank you for your input!');
             props.navigation.pop(); //return to the previous screen
-        }
+        }).catch((error) => {
+            Alert.alert('Unable to submit review', error.message);
+            console.error('an error has occured with submitting the review: ' + error.code);
+        });
     }
 
     //Check to see if the user is not logged in

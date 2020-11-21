@@ -18,7 +18,7 @@ export default class App extends Component {
 
     render() {
         return (
-            <ImageBackground style={styles.background} source={require('../source/assets/shot.jpg')} resizeMode='stretch'>
+            <ImageBackground style={styles.background} source={require('../assets/shot.jpg')} resizeMode='stretch'>
                 <View style={styles.container}>
                     <Text style={styles.text}>For the most up-to-date information and risk level in Saskatchewan, visit 
                         <Text style={{color: 'blue'}} onPress={() => {Linking.openURL('https://www.saskatchewan.ca/government/health-care-administration-and-provider-resources/treatment-procedures-and-guidelines/emerging-public-health-issues/2019-novel-coronavirus/cases-and-risk-of-covid-19-in-saskatchewan')}}>
