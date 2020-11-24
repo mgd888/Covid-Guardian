@@ -1,5 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {  Alert, StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {  
+  Alert,
+  KeyboardAvoidingView,
+  StyleSheet, 
+  Text, 
+  View, 
+  Button, 
+  TouchableOpacity,
+  Platform
+} from 'react-native';
 
 
 import * as fb from '../components/Firebase/firebase';
@@ -48,34 +57,50 @@ export default function Login({navigation}) {
     }
 
     return(
-      <View style={styles.container}>
-        <Text style={styles.title}> Log In </Text>
-        <Input 
-          style={styles.input} 
-          name="email"
-          placeholder="Enter Email"
-          pattern={'/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'} //regex for email
-          onChangeText={text => setEmailData(text)}
-          onValidation={result => setIsEmailValid(result)}
-        />
-        <Input 
-          style={styles.input}
-          name="password"
-          placeholder="Enter Password" 
-          onChangeText={text => setPasswordData(text)}
-          onValidation={result => setIsPasswordValid(result)}
-          pattern={[
-            '^.{6,}$', // min 6 chars
-          ]}
-          secureTextEntry
-        />
-        <Button onPress={submitButton} title="Log in"/>
-        <Text style={{alignSelf:'center', marginBottom: 20, marginTop: 20}}>Don't have an account?</Text>
+      <KeyboardAvoidingView behavior={Platform.OS == 'ios'? 'padding' : 'height'} style={styles.container}>
+
+        <View style={styles.titleBox}>
+          <Text style={styles.title}>Log In</Text>
+        </View>
+
+        <View style={styles.textInputs}>
+          <View style={styles.inputView}>
+            <Input 
+              style={styles.input} 
+              name="email"
+              placeholder="Enter Email"
+              pattern={'/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'} //regex for email
+              onChangeText={text => setEmailData(text)}
+              onValidation={result => setIsEmailValid(result)}
+            />
+          </View>
+
+          <View style={styles.inputView}>
+            <Input 
+              style={styles.input}
+              name="password"
+              placeholder="Enter Password" 
+              onChangeText={text => setPasswordData(text)}
+              onValidation={result => setIsPasswordValid(result)}
+              pattern={[
+                '^.{6,}$', // min 6 chars
+              ]}
+              secureTextEntry
+            />
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.submitButton} onPress={submitButton}>
+            <Text style={styles.submitText}>Log in</Text>
+        </TouchableOpacity>
+
+        <Text style={{alignSelf:'center', marginVertical: 20}}>Don't have an account?</Text>
+
         <Button
           title="Sign Up Now"
           onPress={pressHandler}
         />
-      </View>
+      </KeyboardAvoidingView>
         
     );
 
@@ -88,33 +113,46 @@ const styles = StyleSheet.create({
       flex: 1, 
       alignItems: 'center', 
       justifyContent: 'center', 
-      backgroundColor:"grey"
     },
+
     title:{
       alignSelf:'center', 
       fontSize: 45,
-      color: 'white',
-      paddingBottom: 10,
-      marginBottom:20,
-      borderBottomColor: 'grey',
-      borderBottomWidth: 1,
       fontWeight:'bold',
       paddingLeft:60,
       paddingRight:60
-
     },
-    input:{
+    titleBox: {
+      borderBottomColor: 'black',
+      borderBottomWidth: 2,
+      paddingBottom: 10,
+      marginBottom:20,
+    },
+    input: {
+      padding: 10
+    },
+    inputView: {
       backgroundColor: 'white',
-      alignSelf:'center',
-      width: 250,
-      height: 30,
+      borderRadius: 5,
+      marginTop: 5,
       marginBottom: 20,
-      color:'black',
-      borderColor: 'black',
-      borderWidth: 2,
-      paddingLeft:60,
-      paddingRight:60
-   
+    },
+    textInputs: {
+      flexDirection: 'column',
+      alignContent: 'stretch',
+      width: 250
+    },
+    submitButton: {
+      backgroundColor: 'dodgerblue',
+      height: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 5,
+      paddingHorizontal: 10
+    },
+    submitText: {
+      color: 'white',
+      fontSize: 20
     },
 });
 

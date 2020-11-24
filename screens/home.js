@@ -21,18 +21,27 @@ export default function Home({navigation}) {
     ]);
     
     return (
+        
         <ScrollView>
             <View style={styles.container}>
+                <View style={styles.titleBox}>
+                    <Text style={styles.title}>Saskatchewan Region Map</Text>
+                </View>
                 <Image style={styles.image} source={require('../assets/map.png')} />
-                { region.map((item) => {
-                    return (
-                        <View key={item.key}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Region', item)}>
-                                <Text style={styles.title}>{item. key}. {getRegionString(item.regionID)}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )
-                })}
+                    <View style={styles.titleBox}>
+                        <Text style={styles.title}>Region List</Text>
+                    </View>
+                <View style={styles.regionBox}>
+                    { region.map((item) => {
+                        return (
+                            <View key={item.key}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Region', item)}>
+                                    <Text style={styles.region}>{getRegionString(item.regionID)}</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    })}
+                </View>
             </View>
         </ScrollView>
     )
@@ -40,28 +49,44 @@ export default function Home({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 24,
+        padding: 15,
         fontSize: 20,
         overflow: 'hidden',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'stretch',
     },
 
     image:{
         marginBottom: 20,
+        alignSelf: 'center',
+        resizeMode: 'contain',
+        height: 500
     },
 
-    title: {
+    region: {
         fontSize: 20,
-        paddingLeft: 55,
-        paddingRight: 55,
-        paddingTop: 10,
-        paddingBottom: 10,
+        fontWeight: '500',
+        paddingHorizontal: 55,
+        paddingVertical: 10,
         marginBottom: 10,
         borderWidth: 1,
         borderRadius: 6,
-        backgroundColor: '#61dafb',
-        width: 300,
-        textAlign: 'left',
+        backgroundColor: '#9FCFED',
+        textAlign: 'center',
+
+    },
+    regionBox: {
+        alignItems: 'stretch',
+        flexDirection: 'column'
+
+    },
+    title: {
+        fontSize: 25,
+        fontWeight: 'bold'
+    },
+    titleBox: {
+        marginBottom: 10,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
     }
 });

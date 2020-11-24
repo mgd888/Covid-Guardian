@@ -126,14 +126,13 @@ export default function Rating(props) {
                             onValidation={result => setIsReviewValid(result)}
                             onBlur={() => {console.log('blured')}}/>
                     </View>
-                    <Text></Text>
 
                     <Text style={styles.inputHeading}>Comment:</Text>
                     <View>
                         <View style={styles.commentView}>
                             <Input 
                                 style={styles.textInput}
-                                placeholder='Comment... (optional)'
+                                placeholder='Comment... (mandatory)'
                                 pattern={'^.{1,100}$'}
                                 onChangeText={text => setCommentData(text)}
                                 onValidation={result => setIsCommentValid(result)}/>
@@ -184,21 +183,19 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     textInput: {
-        height: 20,
+        padding: 10,
     },
     textView: {
         backgroundColor: 'white',
         borderRadius: 5,
         marginTop: 5,
         marginBottom: 20,
-        padding: 10
     },
     commentView: {
         backgroundColor: 'white',
         borderRadius: 5,
         marginTop: 5,
         marginBottom: 10,
-        padding: 10
     },
     counterDefault: {
         color: 'grey',
