@@ -4,9 +4,8 @@ import {
   KeyboardAvoidingView,
   StyleSheet, 
   Text,
-  View, 
-  Button, 
-  TouchableOpacity, 
+  View,
+  TouchableOpacity
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -184,7 +183,9 @@ export default function Signup({navigation}) {
         </View>
         
 
-      <Button onPress={submitButton} title="Sign Up" />
+        <TouchableOpacity style={styles.submitButton} onPress={submitButton}>
+            <Text style={styles.submitText}>Sign Up</Text>
+        </TouchableOpacity>
         
       </KeyboardAvoidingView>
         
@@ -234,6 +235,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignContent: 'stretch',
     width: 250
-  }
+  },
+  submitButton: {
+    backgroundColor: 'dodgerblue',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    paddingHorizontal: 10
+  },
+  submitText: {
+    color: 'white',
+    fontSize: 20
+  },
 });
 

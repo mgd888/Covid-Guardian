@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {  
-  Alert, 
-  Keyboard,
+  Alert,
   KeyboardAvoidingView,
   StyleSheet, 
   Text, 
@@ -91,7 +90,9 @@ export default function Login({navigation}) {
           </View>
         </View>
 
-        <Button onPress={submitButton} title="Log in"/>
+        <TouchableOpacity style={styles.submitButton} onPress={submitButton}>
+            <Text style={styles.submitText}>Log in</Text>
+        </TouchableOpacity>
 
         <Text style={{alignSelf:'center', marginVertical: 20}}>Don't have an account?</Text>
 
@@ -131,15 +132,27 @@ const styles = StyleSheet.create({
       padding: 10
     },
     inputView: {
-        backgroundColor: 'white',
-        borderRadius: 5,
-        marginTop: 5,
-        marginBottom: 20,
+      backgroundColor: 'white',
+      borderRadius: 5,
+      marginTop: 5,
+      marginBottom: 20,
     },
     textInputs: {
       flexDirection: 'column',
       alignContent: 'stretch',
       width: 250
-    }
+    },
+    submitButton: {
+      backgroundColor: 'dodgerblue',
+      height: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 5,
+      paddingHorizontal: 10
+    },
+    submitText: {
+      color: 'white',
+      fontSize: 20
+    },
 });
 
