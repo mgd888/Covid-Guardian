@@ -61,35 +61,31 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center', 
         justifyContent: 'center', 
-        backgroundColor:"grey"
+        
     },
 
     info: {
-        color: 'lightgreen',
+        color: 'green',
         fontSize: 18,
         fontWeight: 'bold',
     },
 
     texture: {
         fontSize: 17,
-        color: 'white',
     },
 
     link: {
-        marginRight: 40,
-        marginLeft: 40,
-        marginTop: 17,
-        marginBottom: 30,
-        width: 100,
+        backgroundColor: 'dodgerblue',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        marginTop: 10,
+        paddingHorizontal: 10
     },
 
     button: {
-        paddingTop: 7,
-        paddingBottom: 7,
-        color: '#fff',
-        textAlign: 'center',
-        backgroundColor: '#68a0cf',
-        borderWidth: 1,
-        borderColor: '#fff'
+        color: 'white',
+        fontSize: 20
     }
 });
