@@ -1,7 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {  Alert, StyleSheet, Text, TextInput, View, Button, TouchableOpacity, Picker} from 'react-native';
+import React, { useState} from 'react';
+import {  
+  Alert,
+  KeyboardAvoidingView,
+  StyleSheet, 
+  Text,
+  View, 
+  Button, 
+  TouchableOpacity, 
+} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
 
 
 
@@ -84,111 +91,102 @@ export default function Signup({navigation}) {
     
 
     return(
-      <View style={styles.container}>
-        <Text style={styles.title}> Sign Up </Text>
-        <Input 
-          style={styles.input} 
-          name="name"
-          placeholder="Enter Name"
-          onChangeText={text => setNameData(text)}
-          onValidation={result => setIsNameValid(result)}
-        />
-        <DropDownPicker
-        items={[
-            {label: 'Select Region', value: '0'},
-            {label: 'Far North West', value: '1'},
-            {label: 'Far North Central', value: '2'},
-            {label: 'Far North East', value: '3'},
-            {label: 'North West', value: '4'},
-            {label: 'North Central', value: '5'},
-            {label: 'North East', value: '6'},
-            {label: 'Saskatoon', value: '7'},
-            {label: 'Central West', value: '8'},
-            {label: 'Cetral East', value: '9'},
-            {label: 'Regina', value: '10'},
-            {label: 'South West', value: '11'},
-            {label: 'South West', value: '12'},
-            {label: 'South East', value: '13'}
-        ]}
-        defaultValue='0'
-        containerStyle={{height: 30, width: 250}}
-        style={styles.inputdrop}
-        dropDownStyle={{backgroundColor: '#fafafa', flex:1}}
-        onChangeItem={text => setRegionData(text)}
-        onValidation={result => setIsRegionValid(result)}
+      <KeyboardAvoidingView behavior={Platform.OS == 'ios'? 'padding' : 'height'} style={styles.container}>
 
-        dropDownMaxHeight={240}
-      />
-        <Text/>
-        <Input 
-          style={styles.input} 
-          name="userAge"
-          placeholder="Enter Age"
-          keyboardType={'numeric'}
-          onChangeText={text => setAgeData(text)}
-          onValidation={result => setIsAgeValid(result)}
-        />
-        
-        <Input 
-          style={styles.input} 
-          name="email"
-          placeholder="Enter Email"
-          pattern={'/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'} //regex for email
-          onChangeText={text => setEmailData(text)}
-          onValidation={result => setIsEmailValid(result)}
-        />
-        <Input 
-          style={styles.input}
-          name="password"
-          placeholder="Enter Password" 
-          onChangeText={text => setPasswordData(text)}
-          onValidation={result => setIsPasswordValid(result)}
-          pattern={[
-            '^.{6,}$', // min 6 chars
-          ]}
-          secureTextEntry
-        />
-        <Input 
-          style={styles.input}
-          name="confirmpassword"
-          placeholder="Confirm Password" 
-          onChangeText={text => setcPasswordData(text)}
-          onValidation={result => setIscPasswordValid(result)}
-          pattern={[
-            '^.{6,}$', // min 6 chars
-          ]}
-          secureTextEntry
-        />
-        {/* <Picker
-          mode="dropdown"
-          style={styles.inputdrop} 
-          name = "userRegionID"
-          selectedValue={regionData}
-          onValueChange={text => setRegionData(text)}
-          onValidation={result => setIsRegionValid(result)}
-        >
-        <Picker.Item label="Select Region" value="0" />
-        <Picker.Item label="Far North West" value="1" />
-        <Picker.Item label="Far North Central" value="2" />
-        <Picker.Item label="Far North East" value="3" />
-        <Picker.Item label="North West" value="4" />
-        <Picker.Item label="North Central" value="5" />
-        <Picker.Item label="North East" value="6" />
-        <Picker.Item label="Saskatoon" value="7" />
-        <Picker.Item label="Central West" value="8" />
-        <Picker.Item label="Central East" value="9" />
-        <Picker.Item label="Regina" value="10" />
-        <Picker.Item label="South West" value="11" />
-        <Picker.Item label="South Central" value="12" />
-        <Picker.Item label="South East" value="13" />
-        </Picker> */}
+        <View style={styles.titleBox}>
+          <Text style={styles.title}>Sign Up</Text>
+        </View>
 
+        <View style={styles.textInputs}>
+          <View style={styles.inputView}>
+            <Input 
+              style={styles.input} 
+              name="name"
+              placeholder="Enter Name"
+              onChangeText={text => setNameData(text)}
+              onValidation={result => setIsNameValid(result)}
+            />
+          </View>
+          <Text>Select Region:</Text>
+          <DropDownPicker
+            items={[
+                {label: 'Select Region', value: '0'},
+                {label: 'Far North West', value: '1'},
+                {label: 'Far North Central', value: '2'},
+                {label: 'Far North East', value: '3'},
+                {label: 'North West', value: '4'},
+                {label: 'North Central', value: '5'},
+                {label: 'North East', value: '6'},
+                {label: 'Saskatoon', value: '7'},
+                {label: 'Central West', value: '8'},
+                {label: 'Cetral East', value: '9'},
+                {label: 'Regina', value: '10'},
+                {label: 'South West', value: '11'},
+                {label: 'South West', value: '12'},
+                {label: 'South East', value: '13'}
+            ]}
+            defaultValue='0'
+            containerStyle={{height: 30, width: 250}}
+            style={styles.inputdrop}
+            dropDownStyle={{backgroundColor: '#fafafa', flex:1}}
+            onChangeItem={text => setRegionData(text)}
+            onValidation={result => setIsRegionValid(result)}
+
+            dropDownMaxHeight={240}
+          />
+          <Text />
+          <View style={styles.inputView}>
+            <Input 
+              style={styles.input} 
+              name="userAge"
+              placeholder="Enter Age"
+              keyboardType={'numeric'}
+              onChangeText={text => setAgeData(text)}
+              onValidation={result => setIsAgeValid(result)}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <Input 
+              style={styles.input} 
+              name="email"
+              placeholder="Enter Email"
+              pattern={'/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'} //regex for email
+              onChangeText={text => setEmailData(text)}
+              onValidation={result => setIsEmailValid(result)}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <Input 
+              style={styles.input}
+              name="password"
+              placeholder="Enter Password" 
+              onChangeText={text => setPasswordData(text)}
+              onValidation={result => setIsPasswordValid(result)}
+              pattern={[
+                '^.{6,}$', // min 6 chars
+              ]}
+              secureTextEntry
+            />
+          </View>
+          <View style={styles.inputView}>
+            <Input 
+              style={styles.input}
+              name="confirmpassword"
+              placeholder="Confirm Password" 
+              onChangeText={text => setcPasswordData(text)}
+              onValidation={result => setIscPasswordValid(result)}
+              pattern={[
+                '^.{6,}$', // min 6 chars
+              ]}
+              secureTextEntry
+            />
+          </View>
+        </View>
         
 
-      <Text/>
       <Button onPress={submitButton} title="Sign Up" />
         
-      </View>
+      </KeyboardAvoidingView>
         
     );
 
@@ -201,46 +199,41 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center', 
-    backgroundColor:"grey",
-   
-    
   },
   title:{
     alignSelf:'center', 
     fontSize: 45,
-    color: 'white',
-    paddingBottom: 10,
-    marginBottom:20,
-    borderBottomColor: 'grey',
-    borderBottomWidth: 1,
     fontWeight:'bold',
     paddingLeft:60,
     paddingRight:60
-
   },
-  input:{
-    backgroundColor: 'white',
-    alignSelf:'center',
-    width: 250,
-    height: 30,
-    marginBottom: 20,
-    color:'black',
-    borderColor: 'black',
-    borderWidth: 2,
-    paddingLeft:60,
-    paddingRight:60
- 
+  titleBox: {
+    borderBottomColor: 'black',
+    borderBottomWidth: 2,
+    paddingBottom: 10,
+    marginBottom:20,
+  },
+  input: {
+    padding: 10
+  },
+  inputView: {
+      backgroundColor: 'white',
+      borderRadius: 5,
+      marginTop: 5,
+      marginBottom: 20,
   },
   inputdrop:{
     color: 'black',
     alignItems:'center',
-    height: 30,
-    width: 250,
-    backgroundColor: '#fafafa',
-    borderColor: 'black', 
-    borderWidth:1.5,
-    flex:1    
-    
+    flex:1,
+
+    backgroundColor: 'white',
+    borderRadius: 5,
   },
+  textInputs: {
+    flexDirection: 'column',
+    alignContent: 'stretch',
+    width: 250
+  }
 });
 
