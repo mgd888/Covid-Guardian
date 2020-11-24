@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import * as fb from '../components/Firebase/firebase';
 import { getRegionString } from '../components/misc/utilities';
 import { ScrollView} from 'react-native-gesture-handler';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 
 const Emoji = props => (                               //reusable code for emojis that wont cause errors
@@ -64,6 +65,8 @@ export default function Region({navigation}) {
     let emo;
     //Rating to be shown to Users
     let rating;
+    //colour for danger scale
+    let dsColor;
 
 
     if(Max == -1)                                     //stops additional reads when state updates.
@@ -119,127 +122,147 @@ export default function Region({navigation}) {
 
     Drating = .6 * Gpercentage + .4 *Upercentage; //weighted 60/40 towards Government data
 
+    dsColor = '#e8e8e8';
+
     //Based on the percentage of the approval rating we assign a specific emoji. it is broken down into 10s
     //for the off chance that it is negative we have an error message so the rest of the data will show
     if(Drating >=.9)
     {
-            emo = <Emoji symbol="🤮" label="everyhingSucks"/>
+            emo = <Emoji symbol="🤮" label="everyhingSucks"/>;
+            dsColor = '#ffa8a8';
     }
     else if(Drating <.9 && Drating >=.8)
     {
-            emo = <Emoji symbol="🤢" label="almostEverthingSucks"/>
+            emo = <Emoji symbol="🤢" label="almostEverthingSucks"/>;
+            dsColor = '#ffa8a8';
     }
     else if(Drating <.8 && Drating >=.7)
     {
-            emo = <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>
+            emo = <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>;
+            dsColor = '#ffa8a8';
     }
     else if(Drating <.7 && Drating >=.6)
     {
-            emo = <Emoji symbol="🤧" label="BestToAvoidPeople"/>
+            emo = <Emoji symbol="🤧" label="BestToAvoidPeople"/>;
+            dsColor = '#ffe2a8';
     }
     else if(Drating <.6 && Drating >=.5)
     {
-            emo = <Emoji symbol="😷" label="MaskIsn'tOptional"/>
+            emo = <Emoji symbol="😷" label="MaskIsn'tOptional"/>;
+            dsColor = '#ffe2a8';
     }
     else if(Drating <.5 && Drating >=.4)
     {
-            emo = <Emoji symbol="😖" label="Notterrible"/>
+            emo = <Emoji symbol="😖" label="Notterrible"/>;
+            dsColor = '#ffe2a8';
     }
     else if(Drating <.4 && Drating >=.3)
     {
-            emo = <Emoji symbol="☹️" label="BubbleBurst"/>
+            emo = <Emoji symbol="☹️" label="BubbleBurst"/>;
+            dsColor = '#ffe2a8';
     }
     else if(Drating <.3 && Drating >=.2)
     {
-            emo = <Emoji symbol="😐" label="bubbleHasn'tBurst" />
+            emo = <Emoji symbol="😐" label="bubbleHasn'tBurst" />;
+            dsColor = '#bbffa8';
     }
     else if(Drating <.2 && Drating >=.1)
     {
-            emo = <Emoji symbol="🙂" label="nearlyNormal" />
+            emo = <Emoji symbol="🙂" label="nearlyNormal" />;
+            dsColor = '#bbffa8';
     }
     else if(Drating <.1)
     {
-            emo = <Emoji symbol="😄" label="CovidWhatsThat?"/>
+            emo = <Emoji symbol="😄" label="CovidWhatsThat?"/>;
+            dsColor = '#bbffa8';
     }
     else
     {
             emo = <Text>error</Text>
     }
 
+    const rowStyle = () => {
+        return {
+            fontSize: 30,
+            paddingVertical: 10,
+            height:90,
+            flexDirection: "row",
+            justifyContent: "center",
+            borderRadius: 10,
+            backgroundColor: dsColor,//bad: ffa8a8 med: ffe2a8 good: bbffa8
+            shadowColor: 'grey',
+            shadowOpacity: 0.4,
+            shadowRadius: 10,
+        };
+    };
+
 
 
     rating = Math.floor((1- Drating)*100);
 
-
-    //needs to be here as data isn't found until now
-    //render Item for Flatlist to go through comments
-    const renderItem = ({item}) => (
-        <View style={styles.Concomm}>
-            <Text style={styles.user}>{item.userName}  Rating: {item.rating}</Text>
-            <Text>{item.comment}</Text>
-        </View>   
-    );
-
-
     //what the User will see
     return(
-        <ScrollView>
-            <View style = {styles.container}>
-                <Text style = {styles.title}>{regionName}</Text>
-                <View style = {styles.row}>
-                    {emo} 
-                    <Text style = {styles.HRating}>Approval rating: {rating}%</Text>
-                </View>
-                <View style = {styles.stats}>
+        <>
+            <ScrollView>
+                <View style = {styles.container}>
+                    <Text style = {styles.title}>{regionName}</Text>
+                    <View style = {rowStyle()}>
+                        {emo} 
+                        <Text style = {styles.HRating}>Approval rating: {rating}%</Text>
+                    </View>
+                        <Text style = {styles.subTitle}>
+                            Statistics
+                        </Text>
+                    <View style = {styles.stats}>
+                        <Text>
+                            Active Cases: {current}
+                        </Text>
+
+                        <Text>
+                            New Cases: {newCases}
+                        </Text>
+
+                        <Text>
+                            ICU Cases: {icu}
+                        </Text>
+
+                        <Text>
+                            Hospitalized Cases: {inpatient}
+                        </Text>
+
+                        <Text>
+                            Recovered Cases: {recover}
+                        </Text>
+
+                        <Text>
+                            Total Cases: {total}
+                        </Text>
+
+                        <Text>
+                            Highest Recorded Cases at One Time: {Max}
+                        </Text>
+
+                        <Text style={styles.caseDate}>Reported on: {date}</Text>
+                    </View>
                     <Text style = {styles.subTitle}>
-                        Statistics
+                            Ratings
                     </Text>
-                    <Text>
-                        Active Cases: {current}
-                    </Text>
+                    {item.length > 1?  //Check to see if there are reviews
+                    item.map((review) => (
+                        <View style={styles.Concomm} key={review.key}>
+                            <Text style={styles.user}>{review.userName} - Rating: {review.rating}</Text>
+                            <Text>{review.comment}</Text>
+                        </View>  
+                    ))
+                    ://No raitings
+                    (<Text>No ratings :(</Text>)}
 
-                    <Text>
-                        New Cases: {newCases}
-                    </Text>
-
-                    <Text>
-                        ICU Cases: {icu}
-                    </Text>
-
-                    <Text>
-                        Hospitalized Cases: {inpatient}
-                    </Text>
-
-                    <Text>
-                        Recovered Cases: {recover}
-                    </Text>
-
-                    <Text>
-                        Total Cases: {total}
-                    </Text>
-
-                    <Text>
-                        Highest Recorded Cases at One Time: {Max}
-                    </Text>
-
-                    <Text style={styles.caseDate}>Reported on: {date}</Text>
                 </View>
-                <View style={styles.button}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Rating', {regionID: regionID})}>
-                        <Text style={styles.buttonText}>Add Rating</Text>
-                    </TouchableOpacity>
-                </View>
-
-
-                {item.map((review) => (
-                    <View style={styles.Concomm} key={review.key}>
-                        <Text style={styles.user}>{review.userName} - Rating: {review.rating}</Text>
-                        <Text>{review.comment}</Text>
-                    </View>  
-                ))}
-
-            </View>
-        </ScrollView>
+            </ScrollView>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Rating', {regionID: regionID})}>
+                <MaterialCommunityIcons name="pencil-plus" size={24} color="white" />
+            </TouchableOpacity>
+        </>
     )
 }
 
@@ -247,6 +270,7 @@ export default function Region({navigation}) {
 const styles = StyleSheet.create({
     container: {                         //Base format
         padding: 15,
+        paddingBottom: 85, //so the floating comment button doesnt cover the last comment
         fontSize: 20,
         overflow: 'hidden',
         justifyContent: 'center',
@@ -258,15 +282,11 @@ const styles = StyleSheet.create({
     },
     title: {                            //Title of page/region
         fontSize: 30,
-        //paddingLeft: 55,
-        //paddingRight: 55,
         paddingTop: 10,
         paddingBottom: 10,
         fontWeight: "bold",
-        //width: 300,
         borderRadius: 6,
         textAlign: 'center',
-        backgroundColor: '#3DA5E0',
     },
     HRating:                           //Header approval rating
     {
@@ -276,13 +296,12 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         borderRadius: 6,
         textAlign: 'center',
-        backgroundColor: '#3DA5E0',
     },
 
     subTitle:                        //Sub header
     {
         fontSize: 22,
-        marginBottom: 10,
+        marginVertical: 15,
         borderBottomWidth: 1, 
         fontWeight: "bold",
         textAlign: 'center',
@@ -297,13 +316,15 @@ const styles = StyleSheet.create({
     row:                           //align emoji and approval in a row format
     {
         fontSize: 30,
-        paddingLeft: 55,
-        paddingRight: 55,
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingVertical: 10,
         height:90,
         flexDirection: "row",
         justifyContent: "center",
+        borderRadius: 10,
+        //backgroundColor: dsColor,//bad: ffa8a8 med: ffe2a8 good: bbffa8
+        shadowColor: 'grey',
+        shadowOpacity: 0.4,
+        shadowRadius: 10,
     },
 
     stats:                       //Format for government statistics
@@ -314,23 +335,35 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 6,
         textAlign: 'center',
-        backgroundColor: '#3DA5E0',
+        backgroundColor: 'white',
     },
 
 
     button: {                  //Pressable button
         
-        paddingLeft: 55,
-        paddingRight: 55,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginTop: 10,
-        marginBottom: 10,
-        borderWidth: 1,
-        borderRadius: 6,
-        backgroundColor: '#61dafb',
+        // paddingLeft: 55,
+        // paddingRight: 55,
+        // paddingTop: 10,
+        // paddingBottom: 10,
+        // marginTop: 10,
+        // marginBottom: 10,
+        // borderWidth: 1,
+        // borderRadius: 6,
+        // backgroundColor: '#61dafb',
         //width: 280,
-        
+
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0.2)',
+        alignItems:'center',
+        justifyContent:'center',
+        width:70,
+        position: 'absolute',                                          
+        bottom: 20,                                                    
+        right: 20,
+        height:70,
+        backgroundColor:'dodgerblue',
+        borderRadius:100,
+        zIndex: 1
     },
 
     buttonText: {
@@ -346,7 +379,7 @@ const styles = StyleSheet.create({
         padding: 10,
         //width: 280, 
         textAlign: 'left',
-        backgroundColor: '#3DA5E0',
+        backgroundColor: '#9FCFED',
     },
 
     user: {                  //Username
