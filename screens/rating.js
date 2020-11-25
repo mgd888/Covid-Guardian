@@ -50,10 +50,10 @@ export default function Rating(props) {
         //Check if the region id is valid
         if(regionID == -1){
             Alert.alert('Error', 'Invalid region ID.');
-            //return;
+            return;
         }
 
-        //TODO: check if user authed
+        //check if user authed
         if(!fb.auth.currentUser) {
             Alert.alert('Error', 'You are not signed in');
             return;
@@ -77,9 +77,11 @@ export default function Rating(props) {
         //attempt to submit the data to ratings
         db.collection('ratings').doc().set(data).then(() => {
             Alert.alert('Success!', 'Your review has been submitted. Thank you for your input!');
-            props.navigation.pop(); //return to the previous screen
+            console.log('Review submitted successfully!');
+            props.navigation.popToTop(); //return to the top of stack
         }).catch((error) => {
             Alert.alert('Unable to submit review', error.message);
+            console.log('Error submitting review');
             console.error('an error has occured with submitting the review: ' + error.code);
         });
     }
@@ -123,8 +125,7 @@ export default function Rating(props) {
                             pattern={'^[0-9]$'}
                             placeholder='Please enter a number between 1 and 5'
                             onChangeText={text => setReviewData(text)}
-                            onValidation={result => setIsReviewValid(result)}
-                            onBlur={() => {console.log('blured')}}/>
+                            onValidation={result => setIsReviewValid(result)}/>
                     </View>
 
                     <Text style={styles.inputHeading}>Comment:</Text>
