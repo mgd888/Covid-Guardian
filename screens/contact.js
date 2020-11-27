@@ -1,7 +1,18 @@
+/*
+ *  contact.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the contact screen in for the application
+ * 
+ *  Author: Changxuan Zhao
+ */
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Linking, Platform, ImageBackground, Dimensions } from 'react-native';
 
 export default class App extends Component {
+
+    /*
+    * makeCall()
+    * Prompts the user to phone the 811 number (implementation is different for ios and android)
+    */
     makeCall = () => {
         let phoneNumber = '';
 
@@ -11,11 +22,12 @@ export default class App extends Component {
         }
         else
         {
-            phoneNumber = 'telprompt:${}';
+            phoneNumber = 'telprompt:${811}';
         }
         Linking.openURL(phoneNumber);
     };
 
+    //Render the screen.
     render() {
         return (
             <ImageBackground style={styles.background} source={require('../assets/shot.jpg')} resizeMode='stretch'>
@@ -39,6 +51,7 @@ export default class App extends Component {
     } 
 }
 
+//define the style for the screen
 const styles = StyleSheet.create({
     container: {
         padding: 25,
@@ -46,9 +59,6 @@ const styles = StyleSheet.create({
 
     background: {
         flex: 1,
-        width: null,
-        height: null,
-        
     },
 
     text: {

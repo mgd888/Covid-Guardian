@@ -1,10 +1,17 @@
+/*
+ *  drawer.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the drawer component (side bar) and initializes the DrawerNavigation 
+ *           from react-navigation
+ * 
+ *  Author: Changxuan Zhao
+ */
+
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
 import HomeStack from './homeStack';
 import AccountStack from './accountStack';
 import NewsStack from './newsStack';
 import ContactStack from './contactStack';
-import ProfileStack from './profileStack';
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
@@ -34,12 +41,6 @@ const RootDrawerNavigator = createDrawerNavigator({
             drawerIcon: ({ tintColor }) => <Feather name="link" size={18} color={tintColor} />
         }
     }
-    /*Profile: {
-        screen: ProfileStack,
-        navigationOptions: {
-            drawerIcon: ({ tintColor }) => <Feather name="user" size={18} color={tintColor} />
-        }
-    }*/
 });
 
 export default createAppContainer(RootDrawerNavigator);

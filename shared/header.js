@@ -1,13 +1,24 @@
+/*
+ *  header.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the header (title) for the application
+ * 
+ *  Author: Changxuan Zhao
+ */
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Header({ navigation }) {
 
+    /*
+    * openMenu()
+    *   Handle when the user presses the menu button (open the drawer)
+    */
     const openMenu = () => {
         navigation.openDrawer();
     }
 
+    //render the component
     return (
         <View style={styles.header}>
             <MaterialIcons name='menu' size={28} onPress={openMenu} style={styles.icon} />
@@ -18,6 +29,7 @@ export default function Header({ navigation }) {
     );
 }
 
+//Define the style or the header
 const styles = StyleSheet.create({
     header: {
         width: '100%',

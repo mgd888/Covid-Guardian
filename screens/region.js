@@ -1,33 +1,32 @@
-import { 
-    FlatList,
-    StyleSheet, 
-    Text,
-    TouchableOpacity, 
-    View 
-} from 'react-native';
+/*
+ *  region.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the region screen for the application
+ * 
+ *  Author: David Lee
+ */
 import React, { useState } from 'react';
-import * as fb from '../components/Firebase/firebase';
-import { getRegionString } from '../components/misc/utilities';
+import { StyleSheet, Text,TouchableOpacity, View } from 'react-native';
+
 import { ScrollView} from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
+import * as fb from '../components/Firebase/firebase';
+import { getRegionString } from '../components/misc/utilities';
 
-const Emoji = props => (                               //reusable code for emojis that wont cause errors
+
+const Emoji = props => (     //reusable code for emojis that wont cause errors
     <Text
         className = "emoji"
         role="img"
         aria-label={props.label ? props.label : ""}
         aria-hidden={props.label ? "false" : "true"}
-        style = {styles.ji}
-    >
+        style = {styles.ji}>
         {props.symbol}
     </Text>
 );
 
 
 export default function Region({navigation}) {
-
-
     //packet to be sent to Comment screen when clicked
     const [region] = useState([
         { key: 1,  regionID: regionID},
@@ -52,8 +51,8 @@ export default function Region({navigation}) {
     const [avg, setavg] = useState(-1);
     const [item, setItem] = useState([]);
 
-    let regionID =  navigation.getParam('regionID')
-    let regionName = getRegionString(regionID);
+    let regionID =  navigation.getParam('regionID'); //get regionID from the passed parameters to screen
+    let regionName = getRegionString(regionID); //get string version of regionID
 
     //weighted data
     let Drating;
@@ -72,42 +71,42 @@ export default function Region({navigation}) {
     if(Max == -1)                                     //stops additional reads when state updates.
     {                                                 //here to stop Freezing and lag issues
 
-        //pull case file
+        //pull case file from Firebase
         db.collection("cases").where("regionID", "==", regionID).orderBy("date", "desc").limit(1).get().then((snapshot) => {
                 snapshot.forEach((doc) => {
-                setCurrent(doc.get("activeCases"));
-                seticu(doc.get("icuHospitalizations"));
-                setInpatient(doc.get("inpatientHospitalizations"));
-                setNewCases(doc.get("newCases"));
-                setRecover(doc.get("recoveredCases"));
-                setTotal(doc.get("totalCases"));
-                setDate(doc.get("date").toDate().toDateString());
+                    setCurrent(doc.get("activeCases"));
+                    seticu(doc.get("icuHospitalizations"));
+                    setInpatient(doc.get("inpatientHospitalizations"));
+                    setNewCases(doc.get("newCases"));
+                    setRecover(doc.get("recoveredCases"));
+                    setTotal(doc.get("totalCases"));
+                    setDate(doc.get("date").toDate().toDateString());
                 });
         })
-        .catch((error) =>{ console.error (error.message); });
+        .catch((error) => { console.error (error.message); });
 
 
-        //pull max cases
+        //pull max cases for region from firebase
         db.collection("max-cases").doc(regionID.toString()).get().then((doc) => {
                 setMax(doc.get("max"));
         })
-        .catch((error) =>{ console.error (error.message); });   
+        .catch((error) => { console.error (error.message); });   
 
 
-        //pull reviews and sum
+        //pull reviews from firebase and sum the results
         db.collection("ratings").where("regionID", "==", regionID).orderBy("date", "desc").limit(10).get().then((snapshot) => {
-                let z = snapshot.size;
-                let x = 0;
-                let y = [];
-                snapshot.forEach((doc) => {
+            let z = snapshot.size;
+            let x = 0;
+            let y = [];
+            snapshot.forEach((doc) => {
                 x = doc.get("rating") + x;
                 y.push({ userName:doc.data().userName, rating: doc.data().rating, comment: doc.data().comment, key: doc.id});
-                })
-                x = x/z;
-                setavg(x);
-                setItem(y);
+            })
+            x = x/z;
+            setavg(x);
+            setItem(y);
         })
-        .catch((error) =>{ console.error (error.message); });
+        .catch((error) => { console.error (error.message); });
     }
 
 
@@ -122,65 +121,71 @@ export default function Region({navigation}) {
 
     Drating = .6 * Gpercentage + .4 *Upercentage; //weighted 60/40 towards Government data
 
-    dsColor = '#e8e8e8';
+    dsColor = '#e8e8e8'; //default color for the box
 
     //Based on the percentage of the approval rating we assign a specific emoji. it is broken down into 10s
     //for the off chance that it is negative we have an error message so the rest of the data will show
     if(Drating >=.9)
     {
-            emo = <Emoji symbol="🤮" label="everyhingSucks"/>;
-            dsColor = '#ffa8a8';
+        emo = <Emoji symbol="🤮" label="everyhingSucks"/>;
+        dsColor = '#ffa8a8';
     }
     else if(Drating <.9 && Drating >=.8)
     {
-            emo = <Emoji symbol="🤢" label="almostEverthingSucks"/>;
-            dsColor = '#ffa8a8';
+        emo = <Emoji symbol="🤢" label="almostEverthingSucks"/>;
+        dsColor = '#ffa8a8';
     }
     else if(Drating <.8 && Drating >=.7)
     {
-            emo = <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>;
-            dsColor = '#ffa8a8';
+        emo = <Emoji symbol="🤒" label="yourProbablyGoingToGetSick"/>;
+        dsColor = '#ffa8a8';
     }
     else if(Drating <.7 && Drating >=.6)
     {
-            emo = <Emoji symbol="🤧" label="BestToAvoidPeople"/>;
-            dsColor = '#ffe2a8';
+        emo = <Emoji symbol="🤧" label="BestToAvoidPeople"/>;
+        dsColor = '#ffe2a8';
     }
     else if(Drating <.6 && Drating >=.5)
     {
-            emo = <Emoji symbol="😷" label="MaskIsn'tOptional"/>;
-            dsColor = '#ffe2a8';
+        emo = <Emoji symbol="😷" label="MaskIsntOptional"/>;
+        dsColor = '#ffe2a8';
     }
     else if(Drating <.5 && Drating >=.4)
     {
-            emo = <Emoji symbol="😖" label="Notterrible"/>;
-            dsColor = '#ffe2a8';
+        emo = <Emoji symbol="😖" label="Notterrible"/>;
+        dsColor = '#ffe2a8';
     }
     else if(Drating <.4 && Drating >=.3)
     {
-            emo = <Emoji symbol="☹️" label="BubbleBurst"/>;
-            dsColor = '#ffe2a8';
+        emo = <Emoji symbol="☹️" label="BubbleBurst"/>;
+        dsColor = '#ffe2a8';
     }
     else if(Drating <.3 && Drating >=.2)
     {
-            emo = <Emoji symbol="😐" label="bubbleHasn'tBurst" />;
-            dsColor = '#bbffa8';
+        emo = <Emoji symbol="😐" label="bubbleHasntBurst" />;
+        dsColor = '#bbffa8';
     }
     else if(Drating <.2 && Drating >=.1)
     {
-            emo = <Emoji symbol="🙂" label="nearlyNormal" />;
-            dsColor = '#bbffa8';
+        emo = <Emoji symbol="🙂" label="nearlyNormal" />;
+        dsColor = '#bbffa8';
     }
     else if(Drating <.1)
     {
-            emo = <Emoji symbol="😄" label="CovidWhatsThat?"/>;
-            dsColor = '#bbffa8';
+        emo = <Emoji symbol="😄" label="CovidWhatsThat?"/>;
+        dsColor = '#bbffa8';
     }
     else
     {
-            emo = <Text>error</Text>
+        emo = <Text>error</Text>
     }
 
+    /*
+    * rowStyle()
+    *   Define a dynamic custom style that is used for the box behind the emoji and percentage
+    *   This needs to be defined as a function because 'dsColor' changes based upon the calcuated 
+    *   values above.
+    */
     const rowStyle = () => {
         return {
             fontSize: 30,
@@ -189,16 +194,14 @@ export default function Region({navigation}) {
             flexDirection: "row",
             justifyContent: "center",
             borderRadius: 10,
-            backgroundColor: dsColor,//bad: ffa8a8 med: ffe2a8 good: bbffa8
+            backgroundColor: dsColor, //bad: ffa8a8 med: ffe2a8 good: bbffa8
             shadowColor: 'grey',
             shadowOpacity: 0.4,
             shadowRadius: 10,
         };
     };
-
-
-
-    rating = Math.floor((1- Drating)*100);
+    
+    rating = Math.floor((1- Drating)*100); //get the rating percentage for screen
 
     //what the User will see
     return(
@@ -266,7 +269,7 @@ export default function Region({navigation}) {
     )
 }
 
-//bluebuttons for most thing default style otherwise
+//Define the style for the screen
 const styles = StyleSheet.create({
     container: {                         //Base format
         padding: 15,
@@ -297,7 +300,6 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         textAlign: 'center',
     },
-
     subTitle:                        //Sub header
     {
         fontSize: 22,
@@ -306,27 +308,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: 'center',
     },
-
     ji:                             //emoji
     {
         fontSize: 50,
         textAlign: 'left',
     },
-
-    row:                           //align emoji and approval in a row format
-    {
-        fontSize: 30,
-        paddingVertical: 10,
-        height:90,
-        flexDirection: "row",
-        justifyContent: "center",
-        borderRadius: 10,
-        //backgroundColor: dsColor,//bad: ffa8a8 med: ffe2a8 good: bbffa8
-        shadowColor: 'grey',
-        shadowOpacity: 0.4,
-        shadowRadius: 10,
-    },
-
     stats:                       //Format for government statistics
     {
         fontSize: 20,
@@ -337,21 +323,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: 'white',
     },
-
-
     button: {                  //Pressable button
-        
-        // paddingLeft: 55,
-        // paddingRight: 55,
-        // paddingTop: 10,
-        // paddingBottom: 10,
-        // marginTop: 10,
-        // marginBottom: 10,
-        // borderWidth: 1,
-        // borderRadius: 6,
-        // backgroundColor: '#61dafb',
-        //width: 280,
-
         borderWidth:1,
         borderColor:'rgba(0,0,0,0.2)',
         alignItems:'center',
@@ -365,27 +337,21 @@ const styles = StyleSheet.create({
         borderRadius:100,
         zIndex: 1
     },
-
     buttonText: {
         fontSize: 20,
         textAlign: 'center',
     },
-
-
     Concomm:                  //Comment format
     {
         marginBottom: 10,
         borderWidth: 1,
         padding: 10,
-        //width: 280, 
         textAlign: 'left',
         backgroundColor: '#9FCFED',
     },
-
     user: {                  //Username
         fontWeight: "bold",
     },
-
     caseDate: {
         fontStyle: 'italic', 
         marginTop: 10

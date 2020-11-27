@@ -1,15 +1,12 @@
+/*
+ *  setup.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the setup screen for the application. 
+ * 
+ *  Author: Maria Christine Anne De Leon
+ */
 import React, { useState} from 'react';
-import {  
-  Alert,
-  KeyboardAvoidingView,
-  StyleSheet, 
-  Text,
-  View,
-  TouchableOpacity
-} from 'react-native';
+import { Alert, KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-
-
 
 import * as fb from '../components/Firebase/firebase';
 import Input from '../components/Input';
@@ -29,8 +26,12 @@ export default function Signup({navigation}) {
     const [cpasswordData, setcPasswordData] = useState(''); //add cpasswordData to state
     const [iscPasswordValid, setIscPasswordValid] = useState(false); //used to see if the confirmed password is valid (through regex)
 
+    /*
+    * submitButton()
+    *   Function that is called when user presses the submit button
+    *   It validates that we recieved the correct input and then sends the data to firebase.
+    */
     const submitButton = () => {
-
       //check if fields are empty
       if (!isNameValid && !isAgeValid &&
           !isEmailValid && !isPasswordValid &&
@@ -50,7 +51,6 @@ export default function Signup({navigation}) {
         Alert.alert('Error', 'Fill age field please');
         return;
       }
-
       if(ageData<16){
         Alert.alert('Error', 'Must be atleast 16 years old');
         return;
@@ -62,7 +62,7 @@ export default function Signup({navigation}) {
         return;
       }
 
-      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //email pattern
 
       //check if email formatt is correct
       if(reg.test(emailData)===false){
@@ -84,18 +84,15 @@ export default function Signup({navigation}) {
       //if nothing wrong connect to firebase
       fb.registerUser(emailData, passwordData, nameData, regionData, ageData, navigation);
       navigation.navigate('Login');
-      
     }
     
     
-
+    //Render the UI of the screen
     return(
       <KeyboardAvoidingView behavior={Platform.OS == 'ios'? 'padding' : 'height'} style={styles.container}>
-
         <View style={styles.titleBox}>
           <Text style={styles.title}>Sign Up</Text>
         </View>
-
         <View style={styles.textInputs}>
           <View style={styles.inputView}>
             <Input 
@@ -106,7 +103,6 @@ export default function Signup({navigation}) {
               onValidation={result => setIsNameValid(result)}
             />
           </View>
-          <Text>Select Region:</Text>
           <DropDownPicker
             items={[
                 {label: 'Select Region', value: '0'},
@@ -181,19 +177,14 @@ export default function Signup({navigation}) {
             />
           </View>
         </View>
-        
-
         <TouchableOpacity style={styles.submitButton} onPress={submitButton}>
             <Text style={styles.submitText}>Sign Up</Text>
         </TouchableOpacity>
-        
       </KeyboardAvoidingView>
-        
     );
-
-
 }
 
+//Define the styles for the signup page
 const styles = StyleSheet.create({
   container: {
     padding: 24,
@@ -224,7 +215,7 @@ const styles = StyleSheet.create({
       marginBottom: 20,
   },
   inputdrop:{
-    color: 'black',
+    color: '#C4C4C6',
     alignItems:'center',
     flex:1,
 

@@ -1,5 +1,14 @@
+/*
+ *  Input.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines a custom input componenet for TextInputs that provides an additional props: onValidation, pattern
+ *           which allows us to define a regex pattern and a function to be invoked when the regex is valid. This is used
+ *           by the login and signup pages
+ * 
+ *  Author: Jason Wolfe (Original source: https://medium.com/@react.ui.kit/react-native-textinput-validation-using-regex-patterns-rules-d811e8eee9aa)
+ */
+
 import React, { Component } from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { TextInput } from "react-native";
 
 class Input extends Component {
   handleValidation(value) {
@@ -16,26 +25,25 @@ class Input extends Component {
       return conditions.map(condition => condition.test(value));
     }
   }
-onChange(value) {
-    const { onChangeText, onValidation } = this.props;
-    const isValid = this.handleValidation(value);
-    onValidation && onValidation(isValid);
-    onChangeText && onChangeText(value);
+  onChange(value) {
+      const { onChangeText, onValidation } = this.props;
+      const isValid = this.handleValidation(value);
+      onValidation && onValidation(isValid);
+      onChangeText && onChangeText(value);
   }
-render() {
+  render() {
     const {
-      pattern,
-      onChangeText,
-      children,
-      style,
-      ...props
+        pattern,
+        onChangeText,
+        children,
+        style,
+        ...props
     } = this.props;
-return (
+    return (
       <TextInput
         style={style}
         onChangeText={value => this.onChange(value)}
-        {...props}
-      >
+        {...props}>
         {children}
       </TextInput>
     );

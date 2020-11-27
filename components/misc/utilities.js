@@ -1,4 +1,21 @@
+/*
+ *  utilities.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines functions that are used throughout the app in multiple screens. This way we aren't
+ *           redefinining similar functions for each screen.
+ * 
+ *           As of right now there is only one function, but if the app were to be expanded, additional shared
+ *           functions would be added
+ * 
+ *  Author: Jason Wolfe 
+ */
 
+ /*
+ * getRegionString(regionID)
+ *      regionID: number = the regionID you want to convert to a string
+ *
+ *  Function simply converts a given regionID to the corresponding string value.
+ *  Needed because the regions are stored as IDs in firebase.
+ */
 export function getRegionString(regionID) {
     let result;
     switch (regionID) {

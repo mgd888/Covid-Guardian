@@ -1,3 +1,11 @@
+/*
+ *  homeStack.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the stack structure that is used by react-naviation for the home related
+ *           screens.
+ * 
+ *  Author: Changxuan Zhao
+ */
+
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import Home from '../screens/home';
@@ -6,7 +14,6 @@ import Rating from '../screens/rating';
 import Header from '../shared/header';
 import Subheader from '../shared/subheader';
 import React from 'react';
-
 
 const screens = {
     Home: {

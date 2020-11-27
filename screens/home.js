@@ -1,9 +1,16 @@
+/*
+ *  home.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the home screen for the application
+ * 
+ *  Author: Changxuan Zhao
+ */
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { getRegionString } from '../components/misc/utilities';
 
 export default function Home({navigation}) {
+    //Create a region that will be used to render the buttons for each region
     const [region] = useState([
         { key: 1,  regionID: 0 },
         { key: 2,  regionID: 1 },
@@ -20,8 +27,8 @@ export default function Home({navigation}) {
         { key: 13, regionID: 12 },
     ]);
     
+    //render the screen
     return (
-        
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.titleBox}>
@@ -47,6 +54,7 @@ export default function Home({navigation}) {
     )
 }
 
+//Define the styles for the screen
 const styles = StyleSheet.create({
     container: {
         padding: 15,
@@ -55,14 +63,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'stretch',
     },
-
     image:{
         marginBottom: 20,
         alignSelf: 'center',
         resizeMode: 'contain',
         height: 500
     },
-
     region: {
         fontSize: 20,
         fontWeight: '500',
@@ -73,7 +79,6 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         backgroundColor: '#9FCFED',
         textAlign: 'center',
-
     },
     regionBox: {
         alignItems: 'stretch',

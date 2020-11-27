@@ -1,7 +1,14 @@
+/*
+ *  header.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the subheader component. Used for title on some screens.
+ * 
+ *  Author: Changxuan Zhao
+ */
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function Subheader({ navigation }) {
+    //render the subheader component
     return (
         <View style={styles.header}>
             <View>
@@ -11,6 +18,7 @@ export default function Subheader({ navigation }) {
     );
 }
 
+//define the style for the sub header
 const styles = StyleSheet.create({
     header: {
         width: '100%',

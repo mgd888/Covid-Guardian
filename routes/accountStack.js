@@ -1,3 +1,11 @@
+/*
+ *  accountStack.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the stack structure that is used by react-naviation for the account related
+ *           screens.
+ * 
+ *  Author: Changxuan Zhao
+ */
+
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import Login from '../screens/login';

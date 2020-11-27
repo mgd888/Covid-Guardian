@@ -1,19 +1,14 @@
+/*
+ *  login.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the login screen for the application. 
+ * 
+ *  Author: Maria Christine Anne De Leon
+ */
 import React, { useState } from 'react';
-import {  
-  Alert,
-  KeyboardAvoidingView,
-  StyleSheet, 
-  Text, 
-  View, 
-  Button, 
-  TouchableOpacity,
-  Platform
-} from 'react-native';
-
+import { Alert, KeyboardAvoidingView, StyleSheet, Text, View, Button, TouchableOpacity, Platform } from 'react-native';
 
 import * as fb from '../components/Firebase/firebase';
 import Input from '../components/Input';
-
 
 export default function Login({navigation}) {
 
@@ -23,9 +18,13 @@ export default function Login({navigation}) {
     const [isPasswordValid, setIsPasswordValid] = useState(false); //used to see if the rating is valid (through regex)
 
     
+    /*
+    * submitButton()
+    *   Function that is called when user presses the submit button
+    *   It validates that we recieved the correct input and then sends the data to firebase.
+    */
     const submitButton = () => {
-
-      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //email regex
 
       //check if fields are empty
       if (!isEmailValid && !isPasswordValid){
@@ -47,22 +46,23 @@ export default function Login({navigation}) {
       
       //if nothing wrong connect to firebase
       fb.loginUser(emailData,passwordData,navigation);
-      
+  
     }
-
     
-
+    /*
+    * pressHandler()
+    *   Handle when the user presses the sign up button
+    */
     const pressHandler = () => {
         navigation.navigate('Signup');
     }
 
+    //render the screen
     return(
       <KeyboardAvoidingView behavior={Platform.OS == 'ios'? 'padding' : 'height'} style={styles.container}>
-
         <View style={styles.titleBox}>
           <Text style={styles.title}>Log In</Text>
         </View>
-
         <View style={styles.textInputs}>
           <View style={styles.inputView}>
             <Input 
@@ -74,7 +74,6 @@ export default function Login({navigation}) {
               onValidation={result => setIsEmailValid(result)}
             />
           </View>
-
           <View style={styles.inputView}>
             <Input 
               style={styles.input}
@@ -89,24 +88,19 @@ export default function Login({navigation}) {
             />
           </View>
         </View>
-
         <TouchableOpacity style={styles.submitButton} onPress={submitButton}>
             <Text style={styles.submitText}>Log in</Text>
         </TouchableOpacity>
-
         <Text style={{alignSelf:'center', marginVertical: 20}}>Don't have an account?</Text>
-
         <Button
           title="Sign Up Now"
           onPress={pressHandler}
         />
       </KeyboardAvoidingView>
-        
     );
-
-    
 }
 
+//define the styles for the screen
 const styles = StyleSheet.create({
     container: {
       padding: 24,
@@ -114,7 +108,6 @@ const styles = StyleSheet.create({
       alignItems: 'center', 
       justifyContent: 'center', 
     },
-
     title:{
       alignSelf:'center', 
       fontSize: 45,

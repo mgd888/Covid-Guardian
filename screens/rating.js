@@ -1,16 +1,11 @@
+/*
+ *  rating.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the rating screen for the application
+ * 
+ *  Author: Jason Wolfe
+ */
 import React, {useState} from 'react';
-import { 
-    Alert,
-    Button, 
-    Keyboard,
-    KeyboardAvoidingView, 
-    Platform,
-    StyleSheet, 
-    Text, 
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View
-} from 'react-native';
+import { Alert, Button, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 import * as fb from '../components/Firebase/firebase';
 import * as utils from '../components/misc/utilities';
@@ -26,11 +21,19 @@ export default function Rating(props) {
 
     const regionID = props.navigation.getParam('regionID', -1); //get the regionID from props. default to -1 if not passed
 
-
+    /*
+    * pressHandler()
+    *   Handle when the user presses the cancel button (go back)
+    */
     const pressHandler = () => {
         props.navigation.pop();
     }
 
+    /*
+    * submitButton()
+    *   Function that is called when user presses the submit button
+    *   It validates that we recieved the correct input and then sends the data to firebase.
+    */
     const submitButton = () => {
 
         let reviewInt = parseInt(reviewData); //convert to number
@@ -108,7 +111,7 @@ export default function Rating(props) {
             { cancelable: false });
     }
 
-
+    //render the screen
     return (
         <KeyboardAvoidingView 
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
@@ -117,7 +120,6 @@ export default function Rating(props) {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inner}>
                     <Text style={styles.screenHeader}>{utils.getRegionString(regionID)}</Text>
-
                     <Text style={styles.inputHeading}>Rating:</Text>
                     <View style={styles.textView}>
                         <Input 
@@ -127,7 +129,6 @@ export default function Rating(props) {
                             onChangeText={text => setReviewData(text)}
                             onValidation={result => setIsReviewValid(result)}/>
                     </View>
-
                     <Text style={styles.inputHeading}>Comment:</Text>
                     <View>
                         <View style={styles.commentView}>
@@ -140,11 +141,9 @@ export default function Rating(props) {
                         </View>
                         <Text style={(commentData.length > 100)? styles.counterInvalid : styles.counterDefault}>{commentData.length} / 100</Text>
                     </View>
-                    
                     <TouchableOpacity style={styles.submitButton} onPress={submitButton}>
                         <Text style={styles.submitText}>Submit Rating</Text>
                     </TouchableOpacity>
-                    
                     <Button title='Cancel' onPress={pressHandler} />
                 </View>
             </TouchableWithoutFeedback>

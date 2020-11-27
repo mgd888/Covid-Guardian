@@ -1,27 +1,46 @@
+/*
+ *  profile.js - COVID Guardian - CS 372 Project
+ *  Purpose: Defines the profile screen for the application
+ * 
+ *  Author: Changxuan Zhao
+ */
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+
 import * as fb from '../components/Firebase/firebase';
 
 export default function Profile({navigation}) {
     
-    const [refresh, setRefresh] = useState(0);
+    const [refresh, setRefresh] = useState(0); //used to update the screen
 
+    //Hook to handle when the screen will be focused (renders on the user's screen)
+    //This is need to refresh the screen after the user logs in.
     const didFocus = navigation.addListener(
         'didFocus',
         payload => {
-            setRefresh(Math.random());
+            setRefresh(Math.random()); //When the state is changed, the screen will re render
         }
     );
-
+    
+    //Check to see if the user is authenticated
     if(!fb.auth.currentUser) {
+        /*
+        * pressHandler1()
+        *   Handle when the user presses the login button
+        */
         const pressHandler1 = () => {
             navigation.navigate('Login');
         }
 
+        /*
+        * pressHandler2()
+        *   Handle when the user presses the signup button
+        */
         const pressHandler2 = () => {
             navigation.navigate('Signup');
         }
 
+        //render the screen (if user is not logged in)
         return (
             <View style={styles.container}>
                 <Text style={styles.info}>COVID Guardian - the first mobile app for people living in Saskatchewan to check the most up-to-date information at anywhere and anytime.{"\n"}</Text>
@@ -37,11 +56,17 @@ export default function Profile({navigation}) {
         );
     }
     else{
-       const pressHandler = () => {
+        /*
+        * pressHandler()
+        *   Handle when the user presses the logout button
+        */
+        const pressHandler = () => {
             setRefresh(1);
             fb.logout();
             navigation.navigate('Home');
-       }
+        }
+
+        //render the screen (When user is logged in)
         return (
             <View style={styles.container}>
                 <Text style={styles.texture}>Welcome to COVID Guardian, {fb.auth.currentUser.displayName}.{"\n"}</Text>
@@ -55,6 +80,7 @@ export default function Profile({navigation}) {
     
 }
 
+//define the styles for the screen
 const styles = StyleSheet.create({
     container: {
         padding: 20,
@@ -63,17 +89,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center', 
         
     },
-
     info: {
         color: 'green',
         fontSize: 18,
         fontWeight: 'bold',
     },
-
     texture: {
         fontSize: 17,
     },
-
     link: {
         backgroundColor: 'dodgerblue',
         height: 50,
@@ -83,7 +106,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         paddingHorizontal: 10
     },
-
     button: {
         color: 'white',
         fontSize: 20
