@@ -1,5 +1,8 @@
-# cta
-CS 372 Project: Saskatchewan COVID-19 Tracker App (name wip)
+# COVID Guardian
+CS 372 Term Project
+
+## Docs
+You can find the external documentation [here](docs/ExternalDocumentation.pdf)
 
 ## Prerequisites
 1. You have Node 12 LTS installed https://nodejs.org/en/download/
@@ -14,7 +17,3 @@ CS 372 Project: Saskatchewan COVID-19 Tracker App (name wip)
 `expo install`
 - this should install the required packages
 5. Run `expo start` to start expo.
-
-
-## Useful info
-Data Source: https://dashboard.saskatchewan.ca/health-wellness/covid-19/cases
